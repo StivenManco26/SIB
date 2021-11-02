@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Parametros>  <!--Comentario-->
+  <Servidor>DELIOAUARISTIZA</Servidor>
+  <BaseDatos>BDEmpresaXX</BaseDatos>
+  <Usuario>PedroLopez</Usuario>
+  <Clave>P3p1t0_l0p3z</Clave>
+  <SeguridadIntegrada>Si</SeguridadIntegrada>
+  <!--Si autenticación: Windows Authentication-->
+  <!--No autenticación: SQL Server Authentication-->
+</Parametros>

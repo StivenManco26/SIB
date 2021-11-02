@@ -1,0 +1,21 @@
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libLlenarCombos.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libLlenarCombos.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libGeneralesBD.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libParametros.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libGeneralesBD.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libParametros.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.csprojAssemblyReference.cache
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.csproj.CopyComplete
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libLlenarCombos.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libLlenarCombos.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libGeneralesBD.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libParametros.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libGeneralesBD.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\bin\Debug\libParametros.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.csprojAssemblyReference.cache
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.csproj.CoreCompileInputs.cache
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.csproj.CopyComplete
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCombos\libLlenarCombos\obj\Debug\libLlenarCombos.pdb

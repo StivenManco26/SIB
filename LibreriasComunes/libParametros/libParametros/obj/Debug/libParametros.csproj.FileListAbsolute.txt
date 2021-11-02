@@ -1,0 +1,11 @@
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libParametros\libParametros\bin\Debug\libParametros.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libParametros\libParametros\bin\Debug\libParametros.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libParametros\libParametros\obj\Debug\libParametros.csprojAssemblyReference.cache
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libParametros\libParametros\obj\Debug\libParametros.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libParametros\libParametros\obj\Debug\libParametros.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libParametros\libParametros\bin\Debug\libParametros.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libParametros\libParametros\bin\Debug\libParametros.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libParametros\libParametros\obj\Debug\libParametros.csprojAssemblyReference.cache
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libParametros\libParametros\obj\Debug\libParametros.csproj.CoreCompileInputs.cache
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libParametros\libParametros\obj\Debug\libParametros.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libParametros\libParametros\obj\Debug\libParametros.pdb

@@ -1,0 +1,9 @@
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\bin\Debug\libOpDescuento.dll
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\bin\Debug\libOpDescuento.pdb
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\bin\Debug\libRnDescuento.dll
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\bin\Debug\libRnDescuento.pdb
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\obj\Debug\libOpDescuento.csprojAssemblyReference.cache
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\obj\Debug\libOpDescuento.csproj.CoreCompileInputs.cache
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\obj\Debug\libOpDescuento.csproj.CopyComplete
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\obj\Debug\libOpDescuento.dll
+D:\Desktop\ClasesFinalProgramacion\libOpDescuento\libOpDescuento\obj\Debug\libOpDescuento.pdb

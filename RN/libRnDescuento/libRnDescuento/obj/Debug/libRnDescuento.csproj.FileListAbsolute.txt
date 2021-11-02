@@ -1,0 +1,5 @@
+D:\Desktop\ClasesFinalProgramacion\libRnDescuento\libRnDescuento\bin\Debug\libRnDescuento.dll
+D:\Desktop\ClasesFinalProgramacion\libRnDescuento\libRnDescuento\bin\Debug\libRnDescuento.pdb
+D:\Desktop\ClasesFinalProgramacion\libRnDescuento\libRnDescuento\obj\Debug\libRnDescuento.csproj.CoreCompileInputs.cache
+D:\Desktop\ClasesFinalProgramacion\libRnDescuento\libRnDescuento\obj\Debug\libRnDescuento.dll
+D:\Desktop\ClasesFinalProgramacion\libRnDescuento\libRnDescuento\obj\Debug\libRnDescuento.pdb

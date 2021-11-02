@@ -1,0 +1,21 @@
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libLlenarCBList.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libLlenarCBList.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libGeneralesBD.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libParametros.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libGeneralesBD.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libParametros.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.csprojAssemblyReference.cache
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.csproj.CopyComplete
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libLlenarCBList.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libLlenarCBList.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libGeneralesBD.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libParametros.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libGeneralesBD.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\bin\Debug\libParametros.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.csprojAssemblyReference.cache
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.csproj.CoreCompileInputs.cache
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.csproj.CopyComplete
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarCBList\libLlenarCBList\obj\Debug\libLlenarCBList.pdb

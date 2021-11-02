@@ -1,0 +1,21 @@
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libLlenarGrids.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libLlenarGrids.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libGeneralesBD.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libParametros.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libGeneralesBD.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libParametros.pdb
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.csprojAssemblyReference.cache
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.csproj.CopyComplete
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.dll
+C:\Users\delioaristizabal\Desktop\Practicas\DlloSW\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libLlenarGrids.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libLlenarGrids.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libGeneralesBD.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libParametros.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libGeneralesBD.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\bin\Debug\libParametros.pdb
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.csprojAssemblyReference.cache
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.csproj.CoreCompileInputs.cache
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.csproj.CopyComplete
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.dll
+C:\Users\manco\Desktop\Universidad\Semestre 2020-ll\Programacion de software\Practicas\ProgSw\Practica6\LibreriasComunes\libLlenarGrids\libLlenarGrids\obj\Debug\libLlenarGrids.pdb

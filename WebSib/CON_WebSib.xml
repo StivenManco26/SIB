@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Parametros>
+	<Servidor>LAPTOP-TKL8FKRM\MSSQLSERVER01</Servidor>
+	<BaseDatos>SIB</BaseDatos>
+	<Usuario>cualquiera</Usuario>
+	<Clave>lamismadesiempre</Clave>
+	<SeguridadIntegrada>si</SeguridadIntegrada>
+</Parametros>
