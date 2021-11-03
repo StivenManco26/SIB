@@ -89,6 +89,7 @@
     <Content Include="frmInicio.aspx" />
     <Content Include="frmLogin.aspx" />
     <Content Include="frmSplash.aspx" />
+    <Content Include="frmUsuarios.aspx" />
     <Content Include="imagenes\Buscar.jpg" />
     <Content Include="imagenes\error.ico" />
     <Content Include="imagenes\logo.png" />
@@ -125,6 +126,13 @@
     </Compile>
     <Compile Include="frmSplash.aspx.designer.cs">
       <DependentUpon>frmSplash.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmUsuarios.aspx.cs">
+      <DependentUpon>frmUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmUsuarios.aspx.designer.cs">
+      <DependentUpon>frmUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

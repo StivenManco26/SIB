@@ -14,7 +14,7 @@ namespace webSib.Clases
         #region "Atributos / Propiedades"
         private string strApp;
         private string strSQL;
-        public int nit { get; set; }
+        public String nit { get; set; }
         public int rpta { get; set; }
         public string nombre { get; set; }
         public string Error { get; private set; }
@@ -49,7 +49,7 @@ namespace webSib.Clases
                 myReader = objCnx.dataReaderLleno;
                 myReader.Read();
                 rpta = myReader.GetInt32(0);
-                nit = myReader.GetInt32(1);
+                nit = myReader.GetString(1);
                 nombre = myReader.GetString(2);
                 myReader.Close();
                 return (rpta == 1) ;

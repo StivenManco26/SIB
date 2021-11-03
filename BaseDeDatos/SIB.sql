@@ -60,8 +60,8 @@ CREATE TABLE tblReserva
 codigoMat VARCHAR(30) NOT NULL,
 nit VARCHAR(30) NOT NULL,
 idEstado INT NOT NULL,
-fechaReserva DATE NOT NULL,
-fechaRegistro DATE NOT NULL)
+fechaReserva DATETIME NOT NULL,
+fechaRegistro DATETIME NOT NULL)
 GO
 
 CREATE TABLE tblReservaEstado
@@ -75,9 +75,9 @@ codigoMat VARCHAR(30) NOT NULL,
 idEstadoMat INT NOT NULL,
 nit VARCHAR(30) NOT NULL,
 idReserva INT,
-fechaPrestamo DATE NOT NULL,
-fechaDevolucion DATE NOT NULL,
-fechaRegistro DATE NOT NULL)
+fechaPrestamo DATETIME NOT NULL,
+fechaDevolucion DATETIME NOT NULL,
+fechaRegistro DATETIME NOT NULL)
 GO
 
 CREATE TABLE tblDevolucion
@@ -111,6 +111,8 @@ ALTER TABLE tblMaterial ADD FOREIGN KEY (idEstado) REFERENCES tblMaterialEstado 
 ALTER TABLE tblMaterial ADD FOREIGN KEY (idAutor) REFERENCES tblMaterialAutor (id)
 ALTER TABLE tblMaterial ADD FOREIGN KEY (idProductor) REFERENCES tblMaterialProductor (id)
 ALTER TABLE tblReserva ADD FOREIGN KEY (idEstado) REFERENCES tblReservaEstado (id)
+ALTER TABLE tblReserva ADD FOREIGN KEY (codigoMat) REFERENCES tblMaterial (codigo)
+ALTER TABLE tblPrestamo ADD FOREIGN KEY (codigoMat) REFERENCES tblMaterial (codigo)
 ALTER TABLE tblPrestamo ADD FOREIGN KEY (idEstadoMat) REFERENCES tblMaterialEstado (id)
 ALTER TABLE tblPrestamo ADD FOREIGN KEY (idReserva) REFERENCES tblReserva (id)
 ALTER TABLE tblDevolucion ADD FOREIGN KEY (codigoMat) REFERENCES tblMaterial (codigo)
@@ -159,13 +161,14 @@ DECLARE @LOGIN INT
 		INNER JOIN tblPersona  P ON U.nit=P.nit and U.usuario=@USER
 	END
 	ELSE
-		SELECT 0 AS Rpta, 0 AS nit, 0 AS nombre
+		SELECT 0 AS Rpta, '0' AS nit, 0 AS nombre
 	
-	--EXEC sp_login 'jcardenas', 'ContraTodo'
+	--EXEC sp_login 'operador1', 'Opera1'
 END
 GO
 
 
+---PERSONA
 CREATE PROCEDURE sp_ingresar_persona_usuario
 @nit VARCHAR(30),
 @nombre VARCHAR(100),
@@ -220,3 +223,187 @@ BEGIN
 	--EXEC sp_buscar_persona '1152704820'
 END
 GO
+
+CREATE PROCEDURE sp_buscar_persona_perfil
+@nit VARCHAR(30)
+AS
+BEGIN
+	SELECT P.nit,PE.maxCantPrestamo,PE.diasPrestamo,PE.maxCantRenovacion
+	FROM tblPersona P
+	INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
+	WHERE nit = @nit
+	--EXEC sp_buscar_persona_perfil '1152704820'
+END
+GO
+
+
+--MATERIAL
+CREATE PROCEDURE sp_consultar_Mat_general
+AS
+BEGIN
+	SELECT *
+	FROM tblMaterial
+	ORDER BY codigo ASC 
+END
+GO
+
+
+CREATE PROCEDURE sp_consultar_Mat_puntual
+@codigo VARCHAR(30)
+AS
+BEGIN
+	SELECT *
+	FROM tblMaterial
+	WHERE codigo=@codigo
+	ORDER BY codigo ASC 
+END
+GO
+
+
+CREATE PROCEDURE sp_consultar_Mat_Estado
+AS
+BEGIN
+	SELECT id as Clave, estado as Dato
+	FROM tblMaterialEstado
+	ORDER BY id ASC 
+END
+GO
+
+
+CREATE PROCEDURE sp_consultar_Mat_Productor
+AS
+BEGIN
+	SELECT id as Clave, productor as Dato
+	FROM tblMaterialProductor
+	ORDER BY id ASC 
+END
+GO
+
+
+CREATE PROCEDURE sp_consultar_Mat_Autor 
+AS
+BEGIN
+	SELECT id as Clave, autor as Dato
+	FROM tblMaterialAutor
+	ORDER BY id ASC 
+END
+GO
+
+
+CREATE PROCEDURE sp_ingresar_Mat_autor
+@nombre VARCHAR(200)
+AS
+BEGIN
+
+IF NOT EXISTS (SELECT autor FROM tblMaterialAutor WHERE autor=@nombre)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		INSERT INTO tblMaterialAutor (autor)
+		VALUES (UPPER(@nombre));
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+--EXEC sp_ingresar_autor 'Gabriel garcia marquez'
+GO
+
+
+CREATE PROCEDURE sp_ingresar_Mat_productor
+@nombre VARCHAR(200)
+AS
+BEGIN
+
+IF NOT EXISTS (SELECT productor FROM tblMaterialProductor WHERE productor=@nombre)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		INSERT INTO tblMaterialProductor (productor)
+		VALUES (UPPER(@nombre));
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+--EXEC sp_ingresar_productor 'planeta'
+GO
+
+
+--RESERVA
+CREATE PROCEDURE sp_consultar_Reserva_estado
+AS
+BEGIN
+	SELECT id as Clave, descripcion as Dato
+	FROM tblReservaEstado
+	WHERE id<>2
+	ORDER BY id ASC 
+END
+GO
+
+--EN PROCESO!!!!
+--CREATE PROCEDURE sp_ingresar_Reserva ---HACER CON CLAVE DATO
+--@codMaterial VARCHAR(30),
+--@nit VARCHAR(30),
+--@idEstado INT,
+--@fechaReserva DATETIME
+--AS
+--BEGIN
+
+----IF (CONVERT(DATE,@fechaReserva)<CONVERT(DATE,GETDATE()))--Error de reserva para una fecha inferior
+----BEGIN 
+----	SELECT 2 AS Rpta
+----	RETURN
+----END
+
+--EXEC sp_buscar_persona_perfil @nit
+
+
+--BEGIN TRANSACTION tx
+
+--	INSERT INTO tblReserva(codigoMat,nit,idEstado,fechaReserva,fechaRegistro)
+--	VALUES (@codMaterial,@nit,@idEstado,@fechaReserva,GETDATE());
+
+--	IF ( @@ERROR > 0 )
+--	BEGIN
+--		ROLLBACK TRANSACTION tx
+--		SELECT 0 AS Rpta
+--		RETURN
+--	END
+
+--COMMIT TRANSACTION tx
+--SELECT 1 AS Rpta
+--RETURN
+
+--END
+
+--	--EXEC sp_ingresar_Reserva 'LB00001','1152704820',1,'3191234567',1,'01/12/2021'
+--GO

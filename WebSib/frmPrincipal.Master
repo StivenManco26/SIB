@@ -43,7 +43,7 @@
                         <asp:ContentPlaceHolder ID="Encabezado" runat="server">
                             <table align="center" class="auto-style2">
                                 <tr>
-                                    <td class="auto-style3"><strong>Almacenes ElectroHogar Ltda</strong></td>
+                                    <td class="auto-style3">SIB - SISTEMA INTERNO DE BIBLIOTECA</td>
                                 </tr>
                             </table>
                         </asp:ContentPlaceHolder>
