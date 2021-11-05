@@ -80,6 +80,7 @@ namespace webSib
         private void Buscar()
         {
             webSib.Clases.clsUsuario objXX = new webSib.Clases.clsUsuario(strApp);
+            strNit = this.txtNit.Text;
             if (!objXX.Buscar(strNit))
             {
                 Limpiar();
@@ -97,7 +98,7 @@ namespace webSib
             objXX = null;
         }
 
-        protected void mnuOpciones_MenuItemClick(object sender, MenuEventArgs e)
+        protected void mnuOpciones_MenuItemClick1(object sender, MenuEventArgs e)
         {
             Mensaje(string.Empty);
             switch (this.mnuOpciones.SelectedValue)
@@ -125,7 +126,6 @@ namespace webSib
                     break;*/
                 case "opcBuscar":
                     intOpcion = 0;
-                    Limpiar();
                     Buscar();
                     this.txtNit.Enabled = true;
                     this.txtNit.ReadOnly = false;
@@ -149,6 +149,8 @@ namespace webSib
                         Limpiar();
                     }
                     intOpcion = 0;
+                    break;
+                default:
                     break;
             }
         }

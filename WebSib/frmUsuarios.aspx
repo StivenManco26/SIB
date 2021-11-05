@@ -19,7 +19,7 @@
                         <tr>
                             <td class="auto-style19">NIT:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtNit" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtNit" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -28,7 +28,7 @@
                         <tr>
                             <td class="auto-style19">Nombre:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtNombre" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtNombre" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -37,7 +37,7 @@
                         <tr>
                             <td class="auto-style19">Correo:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtCorreo" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtCorreo" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -46,7 +46,7 @@
                         <tr>
                             <td class="auto-style19">Celular:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtCelular" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtCelular" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -55,7 +55,7 @@
                         <tr>
                             <td class="auto-style19">Perfil:</td>
                             <td class="auto-style18">
-                                <asp:DropDownList ID="ddlPerfil" runat="server" Height="19px" Width="250px">
+                                <asp:DropDownList ID="ddlPerfil" runat="server" Height="19px" Width="335px">
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -64,7 +64,7 @@
                         <tr>
                             <td class="auto-style19">Usuario:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtUsuario" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtUsuario" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -73,7 +73,7 @@
                         <tr>
                             <td class="auto-style19">Contraseña:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtContrasena" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtContrasena" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -86,7 +86,7 @@
             </tr>
             <tr>
                 <td class="auto-style20">
-                <asp:Menu ID="mnuOpciones" runat="server" BorderStyle="Solid" BorderWidth="2px" DynamicHorizontalOffset="2" Font-Bold="True" Font-Names="Century Gothic" Font-Size="Small" Orientation="Horizontal" RenderingMode="Table" Width="100%">
+                <asp:Menu ID="mnuOpciones" runat="server" BorderStyle="Solid" BorderWidth="2px" DynamicHorizontalOffset="2" Font-Bold="True" Font-Names="Century Gothic" Font-Size="Small" Orientation="Horizontal" RenderingMode="Table" Width="100%" OnMenuItemClick="mnuOpciones_MenuItemClick1">
                     <Items>
                         <asp:MenuItem Text="Buscar" Value="opcBuscar"></asp:MenuItem>
                         <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>

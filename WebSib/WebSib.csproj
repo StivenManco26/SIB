@@ -92,7 +92,7 @@
     <Content Include="frmUsuarios.aspx" />
     <Content Include="imagenes\Buscar.jpg" />
     <Content Include="imagenes\error.ico" />
-    <Content Include="imagenes\Logo.jpg" />
+    <Content Include="imagenes\logo.jpg" />
     <Content Include="imagenes\Splash.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
