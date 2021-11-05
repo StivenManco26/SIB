@@ -216,7 +216,7 @@ CREATE PROCEDURE sp_buscar_persona
 @nit VARCHAR(30)
 AS
 BEGIN
-	SELECT P.nit,P.nombre,P.correo,P.celular,PE.descripcion  
+	SELECT P.nit,P.nombre,P.correo,P.celular,PE.perfil  
 	FROM tblPersona P
 	INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
 	WHERE nit = @nit
@@ -236,6 +236,15 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE sp_buscar_perfil
+AS
+BEGIN
+	SELECT perfil as Clave, descripcion as Dato
+	FROM tblPerfil
+	ORDER BY perfil ASC 
+END
+GO
+--EXEC sp_buscar_perfil
 
 --MATERIAL
 CREATE PROCEDURE sp_consultar_Mat_general
@@ -268,6 +277,8 @@ BEGIN
 	ORDER BY id ASC 
 END
 GO
+
+--EXEC sp_consultar_Mat_Estado
 
 
 CREATE PROCEDURE sp_consultar_Mat_Productor

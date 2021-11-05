@@ -1,7 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="Formulario web2.aspx.cs" Inherits="webElectroHogar.Formulario_web22" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="frmUsuarios.aspx.cs" Inherits="webSib.Formulario_web22" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cuerpo" runat="server">
     <table class="auto-style2">
         <tbody class="auto-style7">
+            <tr>
+                <td class="auto-style25">
+                <asp:Label ID="lblUsu" runat="server" CssClass="auto-style13"></asp:Label>
+                </td>
+            </tr>
             <tr>
                 <td class="auto-style20">Usuarios</td>
             </tr>
@@ -14,7 +19,7 @@
                         <tr>
                             <td class="auto-style19">NIT:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="TextBox1" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtNit" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -23,7 +28,7 @@
                         <tr>
                             <td class="auto-style19">Nombre:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="TextBox4" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtNombre" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -32,7 +37,7 @@
                         <tr>
                             <td class="auto-style19">Correo:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="TextBox5" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtCorreo" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -41,7 +46,7 @@
                         <tr>
                             <td class="auto-style19">Celular:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="TextBox6" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtCelular" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -49,9 +54,9 @@
                     <table class="auto-style8">
                         <tr>
                             <td class="auto-style19">Perfil:</td>
-                            <td class="auto-style18"><strong>
-                                <asp:TextBox ID="TextBox7" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
-                                </strong>
+                            <td class="auto-style18">
+                                <asp:DropDownList ID="ddlPerfil" runat="server" Height="19px" Width="250px">
+                                </asp:DropDownList>
                             </td>
                         </tr>
                     </table>
@@ -59,7 +64,7 @@
                         <tr>
                             <td class="auto-style19">Usuario:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="TextBox8" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtUsuario" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -68,7 +73,7 @@
                         <tr>
                             <td class="auto-style19">Contraseña:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="TextBox9" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
+                                <asp:TextBox ID="txtContrasena" runat="server" CssClass="auto-style17" Width="244px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -143,6 +148,12 @@
         .auto-style24 {
             width: 771px;
             height: 76px;
+        }
+
+        .auto-style25 {
+            height: 27px;
+            width: 771px;
+            text-align: right;
         }
 
         </style>

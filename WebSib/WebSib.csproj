@@ -92,13 +92,15 @@
     <Content Include="frmUsuarios.aspx" />
     <Content Include="imagenes\Buscar.jpg" />
     <Content Include="imagenes\error.ico" />
-    <Content Include="imagenes\logo.png" />
-    <Content Include="imagenes\splash.jpg" />
+    <Content Include="imagenes\Logo.jpg" />
+    <Content Include="imagenes\Splash.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\clsPerfil.cs" />
     <Compile Include="Clases\clsGenerales.cs" />
     <Compile Include="Clases\clsLogin.cs" />
+    <Compile Include="Clases\clsUsuario.cs" />
     <Compile Include="frmInicio.aspx.cs">
       <DependentUpon>frmInicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
