@@ -37,7 +37,7 @@
             <table align="center" class="auto-style3" style="border: thin solid #000000">
                 <tr>
                     <td style="width: 30%">
-                        <asp:Image ID="Image1" runat="server" Height="150px" Width="331px" ImageUrl="~/imagenes/logo.png" />
+                        <asp:Image ID="Image1" runat="server" Height="300px" Width="300px" ImageUrl="~/imagenes/logo.jpg" />
                     </td>
                     <td>
                         <asp:ContentPlaceHolder ID="Encabezado" runat="server">
@@ -62,12 +62,8 @@
                                                     <asp:TreeNode Text="Inicio" Value="mnuInicio" NavigateUrl="~/frmInicio.aspx"></asp:TreeNode>
                                                     <asp:TreeNode Text="Login" Value="mnuLogin" NavigateUrl="~/frmLogin.aspx"></asp:TreeNode>
                                                     <asp:TreeNode Text="Operación" Value="mnuActividades">
-                                                        <asp:TreeNode Text="Facturación" Value="opcFacturacion" NavigateUrl="~/frmFacturacion.aspx"></asp:TreeNode>
                                                     </asp:TreeNode>
                                                     <asp:TreeNode Text="Maestros" Value="mnuMaestros">
-                                                        <asp:TreeNode Text="Clientes" Value="opcClientes" NavigateUrl="~/frmClientes.aspx"></asp:TreeNode>
-                                                        <asp:TreeNode Text="Empleados" Value="opcEmpleados" NavigateUrl="~/frmEmpleados.aspx"></asp:TreeNode>
-                                                        <asp:TreeNode Text="Productos" Value="opcProductos" NavigateUrl="~/frmProductos.aspx"></asp:TreeNode>
                                                         <asp:TreeNode Text="Usuarios" Value="opcUsuarios" NavigateUrl="~/frmUsuarios.aspx"></asp:TreeNode>
                                                     </asp:TreeNode>
                                                 </Nodes>

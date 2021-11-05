@@ -108,7 +108,8 @@ namespace webSib
                     Limpiar();
                     this.txtNit.ReadOnly = true;
                     this.txtNombre.ReadOnly = false;
-                    this.txtCorreo.Focus();
+                    this.txtNombre.Focus();
+                    this.txtCorreo.ReadOnly = false;
                     this.txtCelular.ReadOnly = false;
                     this.txtUsuario.ReadOnly = false;
                     this.txtContrasena.ReadOnly = false;

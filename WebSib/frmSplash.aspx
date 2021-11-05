@@ -14,8 +14,8 @@
             width: 98%;
         }
         .auto-style3 {
-            width: 960px;
-            height: 560px;
+            width: 922px;
+            height: 691px;
         }
     </style>
 </head>
@@ -28,7 +28,7 @@
             <table align="center" class="auto-style2">
                 <tr>
                     <td>
-                        <img alt="" class="auto-style3" src="imagenes/splash.jpg" /><asp:Timer ID="tmrSplash" runat="server" OnTick="tmrSplash_Tick" Interval="2000">
+                        <img alt="" class="auto-style3" src="imagenes/splash.jpg" /><asp:Timer ID="tmrSplash" runat="server" OnTick="tmrSplash_Tick" Interval="2500">
                         </asp:Timer>
                     </td>
                 </tr>
