@@ -220,9 +220,48 @@ BEGIN
 	FROM tblPersona P
 	INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
 	WHERE nit = @nit
-	--EXEC sp_buscar_persona '1152704820'
+	--EXEC sp_buscar_persona '1152457543'
 END
 GO
+
+CREATE PROCEDURE sp_modificar_persona
+@nit VARCHAR(30),
+@nombre VARCHAR(100),
+@correo VARCHAR(100),
+@celular VARCHAR(10),
+@perfil INT
+AS
+BEGIN
+
+IF EXISTS (SELECT nit FROM tblPersona WHERE nit=@nit)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		UPDATE tblPersona 
+		SET nit=@nit,nombre=UPPER(@nombre),correo=UPPER(@correo),celular=@celular,perfil=UPPER(@perfil)
+		WHERE nit=@nit;
+
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+	--EXEC sp_modificar_persona '1152704820','Juan Cárdenas','juancardenas284825@correo.itm.edu.co','3197654321',2
+GO
+
 
 CREATE PROCEDURE sp_buscar_persona_perfil
 @nit VARCHAR(30)
@@ -252,7 +291,7 @@ AS
 BEGIN
 	SELECT *
 	FROM tblMaterial
-	ORDER BY codigo ASC 
+	ORDER BY codigo DESC 
 END
 GO
 

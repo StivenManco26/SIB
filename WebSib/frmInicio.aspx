@@ -7,7 +7,7 @@
             </td>
         </tr>
         <tr>
-            <td>Sistema de facturación - SIDEFA</td>
+            <td>Sistema Interno de biblioteca - SIB</td>
         </tr>
         <tr>
             <td>&nbsp;</td>

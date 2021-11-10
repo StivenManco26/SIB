@@ -89,7 +89,30 @@ namespace webSib.Clases
             }
             return true;
         }
-
+        private bool validarDatosModificar()
+        {
+            if (string.IsNullOrEmpty(nit.ToString()))
+            {
+                Error = "Falta nit";
+                return false;
+            }
+            if (string.IsNullOrEmpty(nombre.ToString()))
+            {
+                Error = "Falta el nombre";
+                return false;
+            }
+            if (string.IsNullOrEmpty(correo.ToString()))
+            {
+                Error = "Falta el correo";
+                return false;
+            }
+            if (string.IsNullOrEmpty(celular.ToString()))
+            {
+                Error = "Falta el celular";
+                return false;
+            }
+            return true;
+        }
         private bool Grabar()
         {
             try
@@ -165,14 +188,13 @@ namespace webSib.Clases
                 + correo + "', '" + celular + "', " + perfil + ", '" + usuario + "', '" + contrasena + "';";
             return Grabar();
         }
-        /*public bool modificarMaestro()
+        public bool modificarMaestro()
         {
-            if (!validarDatos())
+            if (!validarDatosModificar())
                 return false;
-            strSQL = "EXEC USP_Prod_Modificar " + codigo + ", " + "'" + descripcion + "', " + 
-                Math.Truncate(valorUnitario) + ", " + iva.ToString().Replace(',', '.') + ", " + clasificacion + ", " + codEmpleado + ";";
+            strSQL = "EXEC sp_modificar_persona '" + nit + "', '" + nombre + "', '"
+                + correo + "', '" + celular + "', " + perfil + ";";
             return Grabar();
-            //EXEC USP_Prod_Modificar 100,'LG SMARTV 32', 2000000, 0.19, 1, 1111
-        }*/
+        }
     }
 }

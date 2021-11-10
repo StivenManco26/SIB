@@ -5,7 +5,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="Cuerpo" runat="server">
     <table align="center" class="auto-style7">
         <tr>
-            <td class="auto-style8"><strong>Ingreso SIDEFA</strong></td>
+            <td class="auto-style8"><strong>Ingreso SIB</strong></td>
         </tr>
         <tr>
             <td class="auto-style8">&nbsp;</td>

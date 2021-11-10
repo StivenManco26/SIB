@@ -3,18 +3,18 @@
     <table class="auto-style2">
         <tbody class="auto-style7">
             <tr>
-                <td class="auto-style25">
+                <td class="auto-style25" colspan="2">
                 <asp:Label ID="lblUsu" runat="server" CssClass="auto-style13"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style20">Usuarios</td>
+                <td class="auto-style20" colspan="2">Usuarios</td>
             </tr>
             <tr>
-                <td class="auto-style21">&nbsp;</td>
+                <td class="auto-style21" colspan="2">&nbsp;</td>
             </tr>
             <tr>
-                <td class="auto-style21">
+                <td class="auto-style21" colspan="2">
                     <table class="auto-style8">
                         <tr>
                             <td class="auto-style19">NIT:</td>
@@ -81,18 +81,29 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style21">
+                <td class="auto-style21" colspan="2">
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="auto-style20">
+                <td class="auto-style27">
+                    <asp:Button ID="btnGuardar" runat="server" Height="24px" OnClick="btnGuardar_Click" Text="Guardar" Visible="False" Width="111px" />
+                </td>
+                <td class="auto-style26">
+                    <asp:Button ID="btnCancelar" runat="server" Height="24px" OnClick="btnCancelar_Click" Text="Cancelar" Visible="False" Width="111px" />
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style20" colspan="2">
+                    </td>
+            </tr>
+            <tr>
+                <td class="auto-style20" colspan="2">
                 <asp:Menu ID="mnuOpciones" runat="server" BorderStyle="Solid" BorderWidth="2px" DynamicHorizontalOffset="2" Font-Bold="True" Font-Names="Century Gothic" Font-Size="Small" Orientation="Horizontal" RenderingMode="Table" Width="100%" OnMenuItemClick="mnuOpciones_MenuItemClick1">
                     <Items>
                         <asp:MenuItem Text="Buscar" Value="opcBuscar"></asp:MenuItem>
                         <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
-                        <asp:MenuItem Text="Modificar" Value="opcModificar"></asp:MenuItem>
-                        <asp:MenuItem Text="Grabar" Value="opcGrabar"></asp:MenuItem>
-                        <asp:MenuItem Text="Cancelar" Value="opcCancelar"></asp:MenuItem>
+                        <asp:MenuItem Text="Modificar" Value="opcModificar" Selectable="False"></asp:MenuItem>
+                        <asp:MenuItem Text="Limpiar" Value="opcLimpiar"></asp:MenuItem>
                     </Items>
                     <StaticHoverStyle BorderStyle="Solid" BorderWidth="2px" ForeColor="Black" />
                     <StaticMenuItemStyle HorizontalPadding="20px" />
@@ -100,11 +111,11 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style24">
+                <td class="auto-style24" colspan="2">
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="auto-style21">
+                <td class="auto-style21" colspan="2">
                 <asp:Label ID="lblMsj" runat="server" CssClass="auto-style13"></asp:Label>
                 </td>
             </tr>
@@ -153,6 +164,17 @@
         .auto-style25 {
             height: 27px;
             width: 771px;
+            text-align: right;
+        }
+
+        .auto-style26 {
+            width: 771px;
+            height: 28px;
+            text-align: left;
+        }
+        .auto-style27 {
+            width: 579px;
+            height: 28px;
             text-align: right;
         }
 
