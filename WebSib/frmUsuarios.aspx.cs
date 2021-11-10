@@ -62,7 +62,15 @@ namespace webSib
                 intOpcion = 0;
                 llenarComboPerfil();
                 this.ddlPerfil.SelectedIndex = 0;
-                //llenarGridProductos();
+                this.txtNit.Enabled = true;
+                this.txtNit.ReadOnly = false;
+                this.txtNit.Focus();
+                this.txtNombre.ReadOnly = true;
+                this.txtCorreo.ReadOnly = true;
+                this.txtCelular.ReadOnly = true;
+                this.txtUsuario.ReadOnly = true;
+                this.txtContrasena.ReadOnly = true;
+                this.ddlPerfil.Enabled = false;
             }
         }
         private void Limpiar()
@@ -74,28 +82,45 @@ namespace webSib
             this.ddlPerfil.SelectedIndex = 0;
             this.txtUsuario.Text = string.Empty;
             this.txtContrasena.Text = string.Empty;
+            this.txtNit.Enabled = true;
+            this.txtNit.ReadOnly = false;
+            this.txtNit.Focus();
+            this.txtNombre.ReadOnly = true;
+            this.txtCorreo.ReadOnly = true;
+            this.txtCelular.ReadOnly = true;
+            this.txtUsuario.ReadOnly = true;
+            this.txtContrasena.ReadOnly = true;
+            this.ddlPerfil.Enabled = false;
             Mensaje(string.Empty);
         }
 
         private void Buscar()
         {
-            webSib.Clases.clsUsuario objXX = new webSib.Clases.clsUsuario(strApp);
-            strNit = this.txtNit.Text;
-            if (!objXX.Buscar(strNit))
+            if (!this.txtNit.Text.Trim().Equals(""))
             {
-                Limpiar();
-                Mensaje(objXX.Error);
+                webSib.Clases.clsUsuario objXX = new webSib.Clases.clsUsuario(strApp);
+                strNit = this.txtNit.Text;
+                if (!objXX.Buscar(strNit))
+                {
+                    Limpiar();
+                    Mensaje(objXX.Error);
+                    objXX = null;
+                    return;
+                }
+                this.txtNit.Text = objXX.nit.ToString();
+                this.txtNombre.Text = objXX.nombre.ToString();
+                this.txtCorreo.Text = objXX.correo.ToString();
+                this.txtCelular.Text = objXX.celular.ToString();
+                this.ddlPerfil.SelectedIndex = objXX.perfil - 1;
+                this.txtUsuario.Text = string.Empty;
+                this.txtContrasena.Text = string.Empty;
                 objXX = null;
-                return;
             }
-            this.txtNit.Text = objXX.nit.ToString();
-            this.txtNombre.Text = objXX.nombre.ToString();
-            this.txtCorreo.Text = objXX.correo.ToString();
-            this.txtCelular.Text = objXX.celular.ToString();
-            this.ddlPerfil.SelectedIndex = objXX.perfil - 1;
-            this.txtUsuario.Text = string.Empty;
-            this.txtContrasena.Text = string.Empty;
-            objXX = null;
+            else
+            {
+                Mensaje("Debe ingresar el NIT a buscar");
+            }
+            
         }
         private void Grabar()
         {
@@ -107,7 +132,6 @@ namespace webSib
                     return;
                 }
                 strNit = this.txtNit.Text;
-                //strNit = (intOpcion == 1) ? "" : this.txtNit.Text;
                 strNombre = this.txtNombre.Text.Trim();
                 strCorreo = this.txtCorreo.Text.Trim();
                 strCelular = this.txtCelular.Text.Trim();
@@ -157,6 +181,7 @@ namespace webSib
             intOpcion = 0;
             this.btnGuardar.Visible = false;
             this.btnCancelar.Visible = false;
+            this.mnuOpciones.FindItem("opcModificar").Selectable = false;
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -166,6 +191,7 @@ namespace webSib
             Limpiar();
             this.btnGuardar.Visible = false;
             this.btnCancelar.Visible = false;
+            this.mnuOpciones.FindItem("opcModificar").Selectable = false;
         }
 
         protected void mnuOpciones_MenuItemClick1(object sender, MenuEventArgs e)
@@ -186,10 +212,10 @@ namespace webSib
                     this.txtUsuario.ReadOnly = false;
                     this.txtContrasena.ReadOnly = false;
                     this.ddlPerfil.Enabled = true;
+                    this.mnuOpciones.FindItem("opcModificar").Selectable = false;
                     break;
                 case "opcModificar":
                     intOpcion = 2;
-                    Limpiar();
                     this.btnGuardar.Visible = true;
                     this.btnCancelar.Visible = true;
                     this.txtNit.ReadOnly = false;
@@ -213,6 +239,7 @@ namespace webSib
                     this.txtUsuario.ReadOnly = true;
                     this.txtContrasena.ReadOnly = true;
                     this.ddlPerfil.Enabled = false;
+                    this.mnuOpciones.FindItem("opcModificar").Selectable=true;
                     break;
                 case "opcLimpiar":
                     Limpiar();
@@ -221,6 +248,7 @@ namespace webSib
                         Limpiar();
                     }
                     intOpcion = 0;
+                    this.mnuOpciones.FindItem("opcModificar").Selectable = false;
                     break;
                 default:
                     break;

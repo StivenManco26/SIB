@@ -89,7 +89,30 @@ namespace webSib.Clases
             }
             return true;
         }
-        //Prueba rama nueva
+        private bool validarDatosModificar()
+        {
+            if (string.IsNullOrEmpty(nit.ToString()))
+            {
+                Error = "Falta nit";
+                return false;
+            }
+            if (string.IsNullOrEmpty(nombre.ToString()))
+            {
+                Error = "Falta el nombre";
+                return false;
+            }
+            if (string.IsNullOrEmpty(correo.ToString()))
+            {
+                Error = "Falta el correo";
+                return false;
+            }
+            if (string.IsNullOrEmpty(celular.ToString()))
+            {
+                Error = "Falta el celular";
+                return false;
+            }
+            return true;
+        }
         private bool Grabar()
         {
             try
@@ -167,7 +190,7 @@ namespace webSib.Clases
         }
         public bool modificarMaestro()
         {
-            if (!validarDatos())
+            if (!validarDatosModificar())
                 return false;
             strSQL = "EXEC sp_modificar_persona '" + nit + "', '" + nombre + "', '"
                 + correo + "', '" + celular + "', " + perfil + ";";

@@ -93,8 +93,8 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style21" colspan="2">
-                    &nbsp;</td>
+                <td class="auto-style20" colspan="2">
+                    </td>
             </tr>
             <tr>
                 <td class="auto-style20" colspan="2">
@@ -102,7 +102,7 @@
                     <Items>
                         <asp:MenuItem Text="Buscar" Value="opcBuscar"></asp:MenuItem>
                         <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
-                        <asp:MenuItem Text="Modificar" Value="opcModificar"></asp:MenuItem>
+                        <asp:MenuItem Text="Modificar" Value="opcModificar" Selectable="False"></asp:MenuItem>
                         <asp:MenuItem Text="Limpiar" Value="opcLimpiar"></asp:MenuItem>
                     </Items>
                     <StaticHoverStyle BorderStyle="Solid" BorderWidth="2px" ForeColor="Black" />
