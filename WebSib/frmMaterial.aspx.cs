@@ -84,7 +84,24 @@ namespace webSib
                 Mensaje(ex.Message);
             }
         }
-
+        private void llenarGridMaterial()
+        {
+            try
+            {
+                Clases.clsMaterial objXX = new Clases.clsMaterial(strApp);
+                if (!objXX.llenarGrid(this.grvDatosMaterial))
+                {
+                    Mensaje(objXX.Error);
+                    objXX = null;
+                    return;
+                }
+                objXX = null;
+            }
+            catch (Exception ex)
+            {
+                Mensaje(ex.Message);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -109,6 +126,9 @@ namespace webSib
                 this.txtEdicion.ReadOnly = true;
                 this.txtCantidad.ReadOnly = true;
                 this.ddlEstado.Enabled = false;
+                this.ddlAutor.Enabled = false;
+                this.ddlEditorial.Enabled = false;
+                llenarGridMaterial();
             }
         }
         private void Limpiar()
@@ -200,6 +220,7 @@ namespace webSib
                     return;
                 }
                 Mensaje("Registro Grabado con éxito");
+                llenarGridMaterial();
             }
             catch (Exception ex)
             {
@@ -246,18 +267,22 @@ namespace webSib
                     this.txtEdicion.ReadOnly = false;
                     this.txtCantidad.ReadOnly = false;
                     this.ddlEstado.Enabled = true;
+                    this.ddlAutor.Enabled = true;
+                    this.ddlEditorial.Enabled = true;
                     this.mnuOpciones.FindItem("opcModificar").Selectable = false;
                     break;
                 case "opcModificar":
                     intOpcion = 2;
                     this.btnGuardar.Visible = true;
                     this.btnCancelar.Visible = true;
-                    this.txtCodigo.ReadOnly = false;
+                    this.txtCodigo.ReadOnly = true;
                     this.txtNombre.ReadOnly = false;
                     this.txtNombre.Focus();
                     this.txtEdicion.ReadOnly = false;
                     this.txtCantidad.ReadOnly = false;
                     this.ddlEstado.Enabled = true;
+                    this.ddlAutor.Enabled = true;
+                    this.ddlEditorial.Enabled = true;
                     break;
                 case "opcBuscar":
                     intOpcion = 0;
@@ -269,6 +294,8 @@ namespace webSib
                     this.txtEdicion.ReadOnly = true;
                     this.txtCantidad.ReadOnly = true;
                     this.ddlEstado.Enabled = false;
+                    this.ddlAutor.Enabled = false;
+                    this.ddlEditorial.Enabled = false;
                     this.mnuOpciones.FindItem("opcModificar").Selectable=true;
                     break;
                 case "opcLimpiar":

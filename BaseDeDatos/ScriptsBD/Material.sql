@@ -2,11 +2,15 @@
 CREATE PROCEDURE sp_consultar_Mat_general
 AS
 BEGIN
-	SELECT *
-	FROM tblMaterial
-	ORDER BY codigo ASC 
+SELECT M.CODIGO,M.NOMBRE,M.EDICION,M.CANTIDAD,E.ESTADO,A.AUTOR,P.PRODUCTOR
+FROM tblMaterial M
+INNER JOIN tblMaterialEstado E ON E.id=M.idEstado
+INNER JOIN tblMaterialAutor A ON A.id=M.idAutor
+INNER JOIN tblMaterialProductor P ON P.id=M.idProductor
+ORDER BY codigo ASC
 END
 GO
+--EXEC sp_consultar_Mat_general;
 
 
 CREATE PROCEDURE sp_consultar_Mat_puntual
@@ -30,6 +34,7 @@ BEGIN
 END
 GO
 
+--EXEC sp_consultar_Mat_Estado;
 
 CREATE PROCEDURE sp_consultar_Mat_Productor
 AS
@@ -40,6 +45,8 @@ BEGIN
 END
 GO
 
+--EXEC sp_consultar_Mat_Productor;
+
 
 CREATE PROCEDURE sp_consultar_Mat_Autor 
 AS
@@ -49,6 +56,8 @@ BEGIN
 	ORDER BY id ASC 
 END
 GO
+
+--EXEC sp_consultar_Mat_Autor;
 
 
 CREATE PROCEDURE sp_ingresar_Mat_autor
@@ -81,7 +90,7 @@ ELSE
 	RETURN
 END
 
---EXEC sp_ingresar_autor 'Gabriel garcia marquez'
+--EXEC sp_ingresar_Mat_autor 'Gabriel garcia marquez'
 GO
 
 
@@ -115,7 +124,7 @@ ELSE
 	RETURN
 END
 
---EXEC sp_ingresar_productor 'planeta'
+--EXEC sp_ingresar_Mat_productor 'planeta'
 GO
 
 
@@ -170,7 +179,7 @@ CREATE PROCEDURE sp_actualizar_Material
 AS
 BEGIN
 
-IF NOT EXISTS (SELECT codigo FROM tblMaterial WHERE codigo=@codigo)
+IF EXISTS (SELECT codigo FROM tblMaterial WHERE codigo=@codigo)
 BEGIN
 
 	BEGIN TRANSACTION tx
@@ -196,5 +205,5 @@ ELSE
 	RETURN
 END
 
---EXEC sp_actualizar_Material 'CaS0001','CIEN añoS DE SOLedad','3.0',2,1,1,1
+--EXEC sp_actualizar_Material 'CaS0001','CIEN añoS DE SOLedad 2','3.0',2,1,1,1
 GO

@@ -105,6 +105,15 @@ namespace webSib
         protected global::System.Web.UI.WebControls.Button btnCancelar;
 
         /// <summary>
+        /// Control lblMsj.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsj;
+
+        /// <summary>
         /// Control mnuOpciones.
         /// </summary>
         /// <remarks>
@@ -114,12 +123,12 @@ namespace webSib
         protected global::System.Web.UI.WebControls.Menu mnuOpciones;
 
         /// <summary>
-        /// Control lblMsj.
+        /// Control grvDatosMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMsj;
+        protected global::System.Web.UI.WebControls.GridView grvDatosMaterial;
     }
 }

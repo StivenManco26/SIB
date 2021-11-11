@@ -94,6 +94,7 @@
             </tr>
             <tr>
                 <td class="auto-style20" colspan="2">
+                <asp:Label ID="lblMsj" runat="server" CssClass="auto-style13"></asp:Label>
                     </td>
             </tr>
             <tr>
@@ -112,12 +113,24 @@
             </tr>
             <tr>
                 <td class="auto-style24" colspan="2">
-                    &nbsp;</td>
+                    <asp:GridView ID="grvDatosMaterial" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="98%">
+                        <AlternatingRowStyle BackColor="White" />
+                        <EditRowStyle BackColor="#2461BF" />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                    </asp:GridView>
+                </td>
             </tr>
             <tr>
                 <td class="auto-style21" colspan="2">
-                <asp:Label ID="lblMsj" runat="server" CssClass="auto-style13"></asp:Label>
-                </td>
+                    &nbsp;</td>
             </tr>
         </tbody>
     </table>

@@ -148,6 +148,20 @@ namespace webSib.Clases
                 return false;
             }
         }
+        public bool llenarGrid(GridView Grid)
+        {
+            strSQL = "EXEC sp_consultar_mat_general;";
+            clsGenerales objGles = new clsGenerales();
+            if (!objGles.llenarGrid(strApp, Grid, strSQL))
+            {
+                Error = objGles.Error;
+                objGles = null;
+                return false;
+            }
+            objGles = null;
+            return true;
+        }
+
         public bool grabarMaestro()
         {
             if (!validarDatos())
