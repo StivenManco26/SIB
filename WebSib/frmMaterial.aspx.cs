@@ -170,6 +170,8 @@ namespace webSib
                 this.ddlEstado.SelectedIndex = objXX.estado - 1;
                 this.ddlAutor.SelectedIndex = objXX.autor - 1;
                 this.ddlEditorial.SelectedIndex = objXX.editorial - 1;
+                this.mnuOpciones.FindItem("opcModificar").Selectable = true;
+                this.txtCodigo.ReadOnly = true;
                 objXX = null;
             }
             else
@@ -287,8 +289,6 @@ namespace webSib
                 case "opcBuscar":
                     intOpcion = 0;
                     Buscar();
-                    this.txtCodigo.Enabled = true;
-                    this.txtCodigo.ReadOnly = false;
                     this.txtCodigo.Focus();
                     this.txtNombre.ReadOnly = true;
                     this.txtEdicion.ReadOnly = true;
@@ -296,7 +296,6 @@ namespace webSib
                     this.ddlEstado.Enabled = false;
                     this.ddlAutor.Enabled = false;
                     this.ddlEditorial.Enabled = false;
-                    this.mnuOpciones.FindItem("opcModificar").Selectable=true;
                     break;
                 case "opcLimpiar":
                     Limpiar();
