@@ -62,6 +62,11 @@
       <HintPath>..\LibreriasComunes\libParametros\libParametros\bin\Debug\libParametros.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -88,6 +93,7 @@
     <Content Include="CON_WebSib.xml" />
     <Content Include="frmInicio.aspx" />
     <Content Include="frmLogin.aspx" />
+    <Content Include="frmPrestamos.aspx" />
     <Content Include="frmSplash.aspx" />
     <Content Include="frmUsuarios.aspx" />
     <Content Include="imagenes\Buscar.jpg" />
@@ -97,9 +103,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\clsEstadoMaterial.cs" />
     <Compile Include="Clases\clsPerfil.cs" />
     <Compile Include="Clases\clsGenerales.cs" />
     <Compile Include="Clases\clsLogin.cs" />
+    <Compile Include="Clases\clsPrestamo.cs" />
     <Compile Include="Clases\clsUsuario.cs" />
     <Compile Include="frmInicio.aspx.cs">
       <DependentUpon>frmInicio.aspx</DependentUpon>
@@ -114,6 +122,13 @@
     </Compile>
     <Compile Include="frmLogin.aspx.designer.cs">
       <DependentUpon>frmLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrestamos.aspx.cs">
+      <DependentUpon>frmPrestamos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmPrestamos.aspx.designer.cs">
+      <DependentUpon>frmPrestamos.aspx</DependentUpon>
     </Compile>
     <Compile Include="frmPrincipal.Master.cs">
       <DependentUpon>frmPrincipal.Master</DependentUpon>

@@ -18,11 +18,15 @@ namespace webSib.Clases
         public DateTime FechaRegi { set; get; }
         public string CodigoMat { set; get; }
         public int IdEstadoMaterial { set; get; }
+        public string EstadoMaterial { set; get; }
         public string Nit { set; get; }
         public int IdReserva { set; get; }
         public int Numero { set; get; }
         public string Nombre { set; get; }
         public string Material { private set; get; }
+        public int CantPrestamo { private set; get; }
+        public int MaxCantPres { private set; get; }
+        public int DiasPrestamo { private set; get; }
         public string Error { private set; get; }
         private int PerfilPersona;
         private string strSQL;
@@ -44,8 +48,12 @@ namespace webSib.Clases
             CodigoMat = string.Empty;
             IdEstadoMaterial = 1;
             Nit = string.Empty;
-            IdReserva = 0;
+            IdReserva = 1;
             Numero = 0;
+            Nombre = string.Empty;
+            CantPrestamo = 0;
+            MaxCantPres = 0;
+            DiasPrestamo = 0;
             Material = string.Empty;
             strSQL = string.Empty;
             Error = string.Empty;
@@ -53,18 +61,22 @@ namespace webSib.Clases
         }
 
 
-        public clsPrestamo(string Aplicacion, DateTime fechaPres, DateTime fechaDevo, DateTime fechaRegi, string codigoMat, int idEstadoMaterial, string nit, int idReserva, int numero, string material)
+        public clsPrestamo(string Aplicacion, /*DateTime fechaPres, DateTime fechaRegi, */string codigoMat, int idEstadoMaterial, string nit, int idReserva, DateTime fechaDevo /*int numero, string material,int CantPres,int diasPrest,string nombre*/)
         {
             strApp = Aplicacion;
-            FechaPres = fechaPres;
+            FechaPres = DateTime.Now.Date;
             FechaDevo = fechaDevo;
-            FechaRegi = fechaRegi;
+            FechaRegi = DateTime.Now.Date;
             CodigoMat = codigoMat;
             IdEstadoMaterial = idEstadoMaterial;
             Nit = nit;
-            IdReserva = idReserva;
-            Numero = numero;
-            Material = material;
+            IdReserva = 1;
+            Numero = 0;
+            Material = string.Empty;
+            CantPrestamo = 0;
+            MaxCantPres = 0;
+            DiasPrestamo = 0;
+            Nombre = string.Empty;
             strSQL = string.Empty;
             Error = string.Empty;
 
@@ -75,12 +87,12 @@ namespace webSib.Clases
 
         private bool ValidarDatos()
         {
-            if (FechaPres < DateTime.Now.Date)
+            if (FechaPres< DateTime.Now.Date)
             {
                 Error = "Fecha de prestamo no válida";
                 return false;
             }
-            if (FechaPres > FechaDevo)
+            if (FechaPres > Convert.ToDateTime(FechaDevo))
             {
                 Error = "Fecha de Devolucion no válida";
                 return false;
@@ -95,7 +107,42 @@ namespace webSib.Clases
                 Error = "El código del material no es Válido ";
                 return false;
             }
-            if (IdEstadoMaterial <= 0)
+            if (IdEstadoMaterial < 0)
+            {
+                Error = "El Id del Estado del material no es Válido ";
+                return false;
+            }
+            if (CantPrestamo>MaxCantPres)
+            {
+                Error = "Maximo de prestamos permitido ";
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidarDatosMaestro()
+        {
+            if (FechaPres < DateTime.Now.Date)
+            {
+                Error = "Fecha de prestamo no válida";
+                return false;
+            }
+            if (FechaPres > Convert.ToDateTime(FechaDevo))
+            {
+                Error = "Fecha de Devolucion no válida";
+                return false;
+            }
+            if (FechaRegi > DateTime.Now.Date)
+            {
+                Error = "Fecha de registro no válida";
+                return false;
+            }
+            if (string.IsNullOrEmpty(CodigoMat))
+            {
+                Error = "El código del material no es Válido ";
+                return false;
+            }
+            if (IdEstadoMaterial < 0)
             {
                 Error = "El Id del Estado del material no es Válido ";
                 return false;
@@ -118,7 +165,7 @@ namespace webSib.Clases
                     objCnx = null;
                     return false;
                 }
-                Numero = Convert.ToInt32(objCnx.vrUnico);
+                Nit = Convert.ToString(objCnx.vrUnico);
                 objCnx.cerrarCnx();
                 objCnx = null;
                 return true;
@@ -130,11 +177,11 @@ namespace webSib.Clases
             }
         }
 
-        private bool BuscarPerfilPersona(string NroDocUsuario)
+        public bool BuscarPerfilPersona(string n)
         {
             try
             {
-                strSQL = "EXEC sp_buscar_persona '" + NroDocUsuario + "';";
+                strSQL = "EXEC sp_buscar_persona_perfil '" + n + "';";
                 clsGeneralesBD objCnx = new clsGeneralesBD(strApp);
                 objCnx.SQL = strSQL;
                 if (!objCnx.Consultar(false))
@@ -147,13 +194,15 @@ namespace webSib.Clases
                 MyReader = objCnx.dataReaderLleno;
                 if (!MyReader.HasRows)
                 {
-                    Error = "No existe registro con el Documento: " + NroDocUsuario;
+                    Error = "No existe registro con el Documento: " + n;
                     objCnx.cerrarCnx();
                     objCnx = null;
                     return false;
                 }
                 MyReader.Read();
-                PerfilPersona = MyReader.GetInt32(0);
+                Nit = MyReader.GetString(0);
+                MaxCantPres = MyReader.GetInt32(1);
+                DiasPrestamo = MyReader.GetInt32(2);
                 MyReader.Close();
                 return true;
             }
@@ -201,14 +250,50 @@ namespace webSib.Clases
             }
         }
         #endregion
+        //realizar la ejecucion del procedimiento almacenado con un buscar cantdad prestamo
+        public bool BuscarCantidad(string n)
+        {
+            try
+            {
+                strSQL = "EXEC sp_Contar_Prestamo '" + n + "';";
+                clsGeneralesBD objCnx = new clsGeneralesBD(strApp);
+                objCnx.SQL = strSQL;
+                if (!objCnx.Consultar(false))
+                {
+                    Error = objCnx.Error;
+                    objCnx.cerrarCnx();
+                    objCnx = null;
+                    return false;
+                }
+                MyReader = objCnx.dataReaderLleno;
+                if (!MyReader.HasRows)
+                {
+                    Error = "No existe registro con el Documento: " + n;
+                    objCnx.cerrarCnx();
+                    objCnx = null;
+                    return false;
+                }
+                MyReader.Read();
+                CantPrestamo = MyReader.GetInt32(0);
+                MyReader.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                return false;
+            }
 
-        public bool BuscarPrestamo(int nit, GridView grid)  //BuscarFactura
+        }
+
+
+        public bool BuscarPrestamo(int nit, GridView grid)  //BuscarPrestamo
         {
             try
             {
                 if (nit <= 0 || grid == null)
                 {
-                    Error = "Nro. de Factura no Válido";
+                    Error = "Nro. de Prestamo no Válido";
                     return false;
                 }
                 strSQL = "EXEC sp_buscar_prestamo_persona " + nit + ";";
@@ -234,14 +319,14 @@ namespace webSib.Clases
                 DataRow dr = Mydt.Rows[0];
                 Numero = Convert.ToInt32(dr["id"]);
                 CodigoMat = dr["codigoMat"].ToString();
-                IdEstadoMaterial = Convert.ToInt32(dr["Cliente"]);
+                EstadoMaterial = dr["estado"].ToString();
                 Nit = dr["nit"].ToString();
                 IdReserva = Convert.ToInt32(dr["idReserva"]);
-                FechaPres = Convert.ToDateTime(dr["fechaPrestamo"]);
+                FechaPres = Convert.ToDateTime(dr["fechaPrestamo"]);               
                 FechaDevo = Convert.ToDateTime(dr["fechaDevolucion"]);
                 FechaRegi = Convert.ToDateTime(dr["fechaRegistro"]);
-                Mydt.Clear();
-                Mydt = Myds.Tables[1];
+                //Mydt.Clear();
+                //Mydt = Myds.Tables[1];            
                 grid.DataSource = Mydt;
                 grid.DataBind();
                 grid.GridLines = GridLines.Both;
@@ -300,7 +385,17 @@ namespace webSib.Clases
         {
             if (!ValidarDatos())
                 return false;
-            //Grabar el encabezado
+            strSQL = "EXEC sp_Ingresar_Prestamo '" + CodigoMat + "'," + IdEstadoMaterial + ",'" + Nit + "' ," + IdReserva + ",'" + ""+ FechaDevo + "';";
+            if (!Grabar())
+                return false;
+
+            return true;
+        }
+
+        public bool modificarMaestro() //grabarMaestro
+        {
+            if (!ValidarDatos())
+                return false;
             strSQL = "EXEC sp_Ingresar_Prestamo '" + CodigoMat + "'," + IdEstadoMaterial + ",'" + Nit + "' , '" + IdReserva + "," + FechaDevo + "';";
             if (!Grabar())
                 return false;

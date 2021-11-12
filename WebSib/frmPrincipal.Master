@@ -62,6 +62,7 @@
                                                     <asp:TreeNode Text="Inicio" Value="mnuInicio" NavigateUrl="~/frmInicio.aspx"></asp:TreeNode>
                                                     <asp:TreeNode Text="Login" Value="mnuLogin" NavigateUrl="~/frmLogin.aspx"></asp:TreeNode>
                                                     <asp:TreeNode Text="Operación" Value="mnuActividades">
+                                                        <asp:TreeNode NavigateUrl="~/frmPrestamos.aspx" Text="Prestamos" Value="Prestamos"></asp:TreeNode>
                                                     </asp:TreeNode>
                                                     <asp:TreeNode Text="Maestros" Value="mnuMaestros">
                                                         <asp:TreeNode Text="Usuarios" Value="opcUsuarios" NavigateUrl="~/frmUsuarios.aspx"></asp:TreeNode>
