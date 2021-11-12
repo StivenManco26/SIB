@@ -1,3 +1,5 @@
+---CREACIÓN DE BASE DE DATOS Y TABLAS DEL SISTEMA------------------------------------------------------
+
 CREATE DATABASE SIB
 GO
 
@@ -102,6 +104,7 @@ notas VARCHAR(300))
 GO
 
 
+--CREACIÓN DE RELACIONES ENTRE LAS TABLAS------------------------------------------------------
 ALTER TABLE tblPersona ADD FOREIGN KEY (perfil) REFERENCES tblPerfil (perfil)
 ALTER TABLE tblUsuario ADD FOREIGN KEY (nit) REFERENCES tblPersona (nit)
 ALTER TABLE tblReserva ADD FOREIGN KEY (nit) REFERENCES tblPersona (nit)
@@ -124,6 +127,8 @@ ALTER TABLE tblSancion ADD FOREIGN KEY (idDevolucion) REFERENCES tblDevolucion (
 ALTER TABLE tblSancion ADD FOREIGN KEY (nit) REFERENCES tblPersona (nit)
 GO
 
+
+--INSERCIÓN DE DATOS BÁSICOS DEL SISTEMA------------------------------------------------------
 INSERT INTO tblPerfil (perfil,descripcion,maxCantPrestamo,diasPrestamo,maxCantRenovacion)
 VALUES (1,'ESTUDIANTE ITM',3,8,2),
 (2,'ESTUDIANTE EXTERNO',1,5,0),
@@ -145,6 +150,7 @@ VALUES ('VIGENTE'),
 GO
 
 
+--LOGIN------------------------------------------------------
 CREATE PROCEDURE sp_login
 @USER VARCHAR(20),
 @PASS VARCHAR(40)
@@ -168,7 +174,7 @@ END
 GO
 
 
----PERSONA
+--MÓDULO PERSONA------------------------------------------------------
 CREATE PROCEDURE sp_ingresar_persona_usuario
 @nit VARCHAR(30),
 @nombre VARCHAR(100),
@@ -211,17 +217,39 @@ END
 	--EXEC sp_ingresar_persona_usuario '1152704820','Juan Cárdenas','juancardenas284825@correo.itm.edu.co','3191234567',1,'jcardenas','ContraTodo'
 GO
 
-
-CREATE PROCEDURE sp_buscar_persona
-@nit VARCHAR(30)
+CREATE PROCEDURE sp_modificar_contrasena
+@nit VARCHAR(30),
+@usuario VARCHAR(30),
+@contrasena VARCHAR(100)
 AS
 BEGIN
-	SELECT P.nit,P.nombre,P.correo,P.celular,PE.perfil  
-	FROM tblPersona P
-	INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
-	WHERE nit = @nit
-	--EXEC sp_buscar_persona '1152457543'
-END
+	IF EXISTS (SELECT nit FROM tblUsuario WHERE nit=@nit AND usuario=@usuario)
+	BEGIN
+
+		BEGIN TRANSACTION tx
+
+			UPDATE tblUsuario 
+			SET contrasena=@contrasena
+			WHERE nit=@nit AND usuario=@usuario;
+
+
+			IF ( @@ERROR > 0 )
+			BEGIN
+				ROLLBACK TRANSACTION tx
+				SELECT 0 AS Rpta
+				RETURN
+			END
+
+		COMMIT TRANSACTION tx
+		SELECT 1 AS Rpta
+		RETURN
+
+	END
+	ELSE 
+		SELECT 0 AS Rpta
+		RETURN
+	END
+	--EXEC sp_modificar_contrasena '1152704820','jcardenas','ContraCorriente'
 GO
 
 CREATE PROCEDURE sp_modificar_persona
@@ -262,6 +290,17 @@ END
 	--EXEC sp_modificar_persona '1152704820','Juan Cárdenas','juancardenas284825@correo.itm.edu.co','3197654321',2
 GO
 
+CREATE PROCEDURE sp_buscar_persona
+@nit VARCHAR(30)
+AS
+BEGIN
+	SELECT P.nit,P.nombre,P.correo,P.celular,PE.descripcion  
+	FROM tblPersona P
+	INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
+	WHERE nit = @nit
+	--EXEC sp_buscar_persona '1152704820'
+END
+GO
 
 CREATE PROCEDURE sp_buscar_persona_perfil
 @nit VARCHAR(30)
@@ -280,18 +319,18 @@ AS
 BEGIN
 	SELECT perfil as Clave, descripcion as Dato
 	FROM tblPerfil
-	ORDER BY perfil ASC 
+	ORDER BY perfil DESC 
 END
 GO
---EXEC sp_buscar_perfil
 
---MATERIAL
+
+--MÓDULO MATERIAL------------------------------------------------------
 CREATE PROCEDURE sp_consultar_Mat_general
 AS
 BEGIN
 	SELECT *
 	FROM tblMaterial
-	ORDER BY codigo DESC 
+	ORDER BY codigo ASC 
 END
 GO
 
@@ -316,8 +355,6 @@ BEGIN
 	ORDER BY id ASC 
 END
 GO
-
---EXEC sp_consultar_Mat_Estado
 
 
 CREATE PROCEDURE sp_consultar_Mat_Productor
@@ -408,7 +445,88 @@ END
 GO
 
 
---RESERVA
+CREATE PROCEDURE sp_ingresar_Material
+@codigo VARCHAR(30),
+@nombre VARCHAR(200),
+@edicion VARCHAR(10),
+@cantidad INT,
+@idEstado INT,
+@idAutor INT,
+@idProductor INT
+AS
+BEGIN
+
+IF NOT EXISTS (SELECT codigo FROM tblMaterial WHERE codigo=@codigo)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		INSERT INTO tblMaterial(codigo,nombre,edicion,cantidad,idEstado,idAutor,idProductor)
+		VALUES (UPPER(@codigo),UPPER(@nombre),UPPER(@edicion),@cantidad,@idEstado,@idAutor,@idProductor);
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+--EXEC sp_ingresar_Material 'CaS0001','CIEN año DE SOLedad','2.0',2,1,1,1
+GO
+
+
+CREATE PROCEDURE sp_actualizar_Material
+@codigo VARCHAR(30),
+@nombre VARCHAR(200),
+@edicion VARCHAR(10),
+@cantidad INT,
+@idEstado INT,
+@idAutor INT,
+@idProductor INT
+AS
+BEGIN
+
+IF NOT EXISTS (SELECT codigo FROM tblMaterial WHERE codigo=@codigo)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		UPDATE tblMaterial
+		SET nombre=UPPER(@nombre),edicion=UPPER(@edicion),cantidad=@cantidad,idEstado=@idEstado,idAutor=@idAutor,idProductor=@idProductor
+		WHERE codigo=@codigo;
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+--EXEC sp_actualizar_Material 'CaS0001','CIEN añoS DE SOLedad','3.0',2,1,1,1
+GO
+
+
+--MPODULO RESERVA------------------------------------------------------
 CREATE PROCEDURE sp_consultar_Reserva_estado
 AS
 BEGIN
@@ -419,41 +537,119 @@ BEGIN
 END
 GO
 
---EN PROCESO!!!!
---CREATE PROCEDURE sp_ingresar_Reserva ---HACER CON CLAVE DATO
---@codMaterial VARCHAR(30),
---@nit VARCHAR(30),
---@idEstado INT,
---@fechaReserva DATETIME
---AS
---BEGIN
 
-----IF (CONVERT(DATE,@fechaReserva)<CONVERT(DATE,GETDATE()))--Error de reserva para una fecha inferior
-----BEGIN 
-----	SELECT 2 AS Rpta
-----	RETURN
-----END
+CREATE PROCEDURE sp_cancelar_Reserva
+@idReserva INT
+AS
+BEGIN
 
---EXEC sp_buscar_persona_perfil @nit
+IF EXISTS (SELECT * FROM tblReserva WHERE id=@idReserva)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		UPDATE tblReserva
+		SET idEstado=2
+		WHERE id=@idReserva
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+--EXEC sp_cancelar_Reserva 1
+GO
 
 
---BEGIN TRANSACTION tx
+CREATE PROCEDURE sp_ingresar_Reserva ---HACER CON CLAVE DATO
+@codMaterial VARCHAR(30),
+@nit VARCHAR(30),
+@idEstado INT,
+@fechaReserva DATETIME
+AS
+BEGIN
 
---	INSERT INTO tblReserva(codigoMat,nit,idEstado,fechaReserva,fechaRegistro)
---	VALUES (@codMaterial,@nit,@idEstado,@fechaReserva,GETDATE());
+--Se debe validar que la fecha ingresada sea superior a la fecha actual para poder ejecutar este sp
 
---	IF ( @@ERROR > 0 )
---	BEGIN
---		ROLLBACK TRANSACTION tx
---		SELECT 0 AS Rpta
---		RETURN
---	END
+	DECLARE @MaxPrestamo INT
+	DECLARE @CantPrestamo INT
+	DECLARE @DiasPrestamo INT
 
---COMMIT TRANSACTION tx
---SELECT 1 AS Rpta
---RETURN
+		SELECT @MaxPrestamo= PE.maxCantPrestamo,@DiasPrestamo=PE.diasPrestamo
+		FROM tblPersona P
+		INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
+		WHERE P.nit = @nit
 
---END
+		SELECT @CantPrestamo=MAX(cant)
+		FROM (
+			SELECT codigoMat,cant=ROW_NUMBER() OVER (PARTITION BY codigoMat ORDER BY codigoMat)
+			FROM tblPrestamo
+			WHERE nit=@nit ) A
 
---	--EXEC sp_ingresar_Reserva 'LB00001','1152704820',1,'3191234567',1,'01/12/2021'
---GO
+		IF (@CantPrestamo>=@MaxPrestamo)
+		BEGIN
+			SELECT 0 AS Rpta, 'El usuario excede la cantidad de prestamos permitidos' Msj
+			RETURN
+		END
+
+	DECLARE @fechaReservaActual AS DATE
+	DECLARE @fechaPosibleDevolucion AS DATE
+	DECLARE @control INT
+
+	DECLARE validarFecha CURSOR FOR
+		SELECT CONVERT(DATE,R.fechaReserva),CONVERT(DATE,DATEADD(DAY,PE.diasPrestamo,R.fechaReserva))
+		FROM tblReserva R
+		INNER JOIN tblPersona P ON R.nit=P.nit
+		INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
+		WHERE R.codigoMat=@codMaterial AND R.idEstado=1
+	OPEN validarFecha
+		FETCH NEXT FROM Cambio_Precio1 INTO @fechaReservaActual,@fechaPosibleDevolucion
+		WHILE @@FETCH_STATUS = 0 BEGIN
+			IF ((CONVERT(DATE,@fechaReserva) BETWEEN @fechaReservaActual AND @fechaPosibleDevolucion)
+				OR (CONVERT(DATE,DATEADD(DAY,@DiasPrestamo,@fechaReserva)) BETWEEN @fechaReservaActual AND @fechaPosibleDevolucion))
+			BEGIN
+				SET @control=1
+			END
+			FETCH NEXT FROM validarFecha INTO @fechaReservaActual,@fechaPosibleDevolucion 
+		END
+	CLOSE validarFecha
+	DEALLOCATE validarFecha
+
+	IF (@control=1)
+	BEGIN
+		SELECT 0 AS Rpta, 'El material se encuentra reservado para la fecha ingresada' Msj
+		RETURN
+	END
+
+	BEGIN TRANSACTION tx
+
+		INSERT INTO tblReserva(codigoMat,nit,idEstado,fechaReserva,fechaRegistro)
+		VALUES (@codMaterial,@nit,@idEstado,@fechaReserva,GETDATE());
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta, 'Error al ingresar' Msj
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta,'Ingresado correctamente' Msj
+	RETURN
+
+	END
+
+	--EXEC sp_ingresar_Reserva 'CAS0001','1152704820',1,'3191234567',1,'01/12/2021'
+GO
