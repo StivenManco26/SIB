@@ -59,6 +59,54 @@ GO
 
 --EXEC sp_consultar_Mat_Autor;
 
+CREATE PROCEDURE sp_consultar_Autor_puntual
+@id INT
+AS
+BEGIN
+	SELECT *
+	FROM tblMaterialAutor
+	WHERE id=@id
+	ORDER BY id ASC
+END
+GO
+
+--EXEC sp_consultar_Autor_puntual 1
+
+CREATE PROCEDURE sp_actualizar_Autor
+@id INT,
+@nombre VARCHAR(200)
+AS
+BEGIN
+
+IF EXISTS (SELECT id FROM tblMaterialAutor WHERE id=@id)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		UPDATE tblMaterialAutor
+		SET autor=UPPER(@nombre)
+		WHERE id=@id;
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+--EXEC sp_actualizar_Autor 1, 'Gabriel Garcia Marquez'
+GO
+
 
 CREATE PROCEDURE sp_ingresar_Mat_autor
 @nombre VARCHAR(200)

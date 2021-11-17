@@ -88,6 +88,7 @@
     <Content Include="CON_WebSib.xml" />
     <Content Include="frmInicio.aspx" />
     <Content Include="frmLogin.aspx" />
+    <Content Include="frmAutor.aspx" />
     <Content Include="frmSplash.aspx" />
     <Content Include="frmMaterial.aspx" />
     <Content Include="frmUsuarios.aspx" />
@@ -119,6 +120,13 @@
     </Compile>
     <Compile Include="frmLogin.aspx.designer.cs">
       <DependentUpon>frmLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmAutor.aspx.cs">
+      <DependentUpon>frmAutor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmAutor.aspx.designer.cs">
+      <DependentUpon>frmAutor.aspx</DependentUpon>
     </Compile>
     <Compile Include="frmPrincipal.Master.cs">
       <DependentUpon>frmPrincipal.Master</DependentUpon>
