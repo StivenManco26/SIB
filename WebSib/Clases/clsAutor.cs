@@ -36,13 +36,22 @@ namespace webSib.Clases
         }
         #endregion
         #region "Métodos Públicos"
-        private bool validarDatos()
+        private bool validarDatosModificar()
         {
             if (string.IsNullOrEmpty(codigo.ToString()))
             {
                 Error = "Falta código";
                 return false;
             }
+            if (string.IsNullOrEmpty(nombre.ToString()))
+            {
+                Error = "Falta el nombre";
+                return false;
+            }
+            return true;
+        }
+        private bool validarDatosIngresar()
+        {
             if (string.IsNullOrEmpty(nombre.ToString()))
             {
                 Error = "Falta el nombre";
@@ -83,7 +92,7 @@ namespace webSib.Clases
         {
             try
             {
-                strSQL = "EXEC sp_consultar_Autor_puntual " + c + ";";
+                strSQL = "EXEC sp_consultar_Autor_puntual '" + c + "';";
                 clsGeneralesBD objCnx = new clsGeneralesBD(strApp);
                 objCnx.SQL = strSQL;
                 if (!objCnx.Consultar(false))
@@ -102,7 +111,7 @@ namespace webSib.Clases
                     return false;
                 }
                 myReader.Read();
-                codigo = Convert.ToInt32(myReader.GetString(0));
+                codigo = myReader.GetInt32(0);
                 nombre = myReader.GetString(1);
                 myReader.Close();
                 return true;
@@ -115,7 +124,7 @@ namespace webSib.Clases
         }
         public bool llenarGrid(GridView Grid)
         {
-            strSQL = "EXEC sp_consultar_Mat_Autor;";
+            strSQL = "EXEC sp_consultar_Mat_Autor_general;";
             clsGenerales objGles = new clsGenerales();
             if (!objGles.llenarGrid(strApp, Grid, strSQL))
             {
@@ -154,14 +163,14 @@ namespace webSib.Clases
         }
         public bool grabarMaestro()
         {
-            if (!validarDatos())
+            if (!validarDatosIngresar())
                 return false;
             strSQL = "EXEC sp_ingresar_Mat_autor '" + nombre + "';";
             return Grabar();
         }
         public bool modificarMaestro()
         {
-            if (!validarDatos())
+            if (!validarDatosModificar())
                 return false;
             strSQL = "EXEC sp_actualizar_Autor " + codigo + ", '" + nombre + "';";
             return Grabar();

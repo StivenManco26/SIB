@@ -104,7 +104,14 @@ namespace webSib
                     Mensaje("Opción no válida");
                     return;
                 }
-                strCodigo = Convert.ToInt32(this.txtCodigo.Text);
+                if (this.txtCodigo.Text.Equals(""))
+                {
+                    strCodigo = 0;
+                }
+                else
+                {
+                    strCodigo = Convert.ToInt32(this.txtCodigo.Text);
+                }
                 strNombre = this.txtNombre.Text.Trim();
                 webSib.Clases.clsAutor objXX = new webSib.Clases.clsAutor(strApp, strCodigo, strNombre);
                 if (intOpcion == 1) // Agregar
@@ -172,7 +179,7 @@ namespace webSib
                     Limpiar();
                     this.btnGuardar.Visible = true;
                     this.btnCancelar.Visible = true;
-                    this.txtCodigo.ReadOnly = false;
+                    this.txtCodigo.ReadOnly = true;
                     this.txtCodigo.Focus();
                     this.txtNombre.ReadOnly = false;
                     this.mnuOpciones.FindItem("opcModificar").Selectable = false;
