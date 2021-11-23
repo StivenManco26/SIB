@@ -66,6 +66,7 @@
                                                     <asp:TreeNode Text="Maestros" Value="mnuMaestros">
                                                         <asp:TreeNode Text="Usuarios" Value="opcUsuarios" NavigateUrl="~/frmUsuarios.aspx"></asp:TreeNode>
                                                         <asp:TreeNode NavigateUrl="~/frmMaterial.aspx" Text="Material" Value="opcMaterial"></asp:TreeNode>
+                                                        <asp:TreeNode NavigateUrl="~/frmAutor.aspx" Text="Autor" Value="opcAutor"></asp:TreeNode>
                                                     </asp:TreeNode>
                                                 </Nodes>
                                                 <RootNodeStyle ForeColor="Black" Font-Bold="True" />
