@@ -61,12 +61,11 @@
                                                 <Nodes>
                                                     <asp:TreeNode Text="Inicio" Value="mnuInicio" NavigateUrl="~/frmInicio.aspx"></asp:TreeNode>
                                                     <asp:TreeNode Text="Login" Value="mnuLogin" NavigateUrl="~/frmLogin.aspx"></asp:TreeNode>
-                                                    <asp:TreeNode Text="Operación" Value="mnuActividades">
-                                                    </asp:TreeNode>
                                                     <asp:TreeNode Text="Maestros" Value="mnuMaestros">
-                                                        <asp:TreeNode Text="Usuarios" Value="opcUsuarios" NavigateUrl="~/frmUsuarios.aspx"></asp:TreeNode>
+                                                        <asp:TreeNode NavigateUrl="~/frmUsuarios.aspx" Text="Usuarios" Value="opcUsuarios"></asp:TreeNode>
                                                         <asp:TreeNode NavigateUrl="~/frmMaterial.aspx" Text="Material" Value="opcMaterial"></asp:TreeNode>
                                                         <asp:TreeNode NavigateUrl="~/frmAutor.aspx" Text="Autor" Value="opcAutor"></asp:TreeNode>
+                                                        <asp:TreeNode NavigateUrl="~/frmEditorial.aspx" Text="Editorial" Value="opcEditorial"></asp:TreeNode>
                                                     </asp:TreeNode>
                                                 </Nodes>
                                                 <RootNodeStyle ForeColor="Black" Font-Bold="True" />

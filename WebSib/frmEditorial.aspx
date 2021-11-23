@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="frmMaterial.aspx.cs" Inherits="webSib.frmMaterial1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="frmEditorial.aspx.cs" Inherits="webSib.frmEditorial" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cuerpo" runat="server">
     <table class="auto-style2">
         <tbody class="auto-style7">
@@ -8,7 +8,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style20" colspan="2">Material</td>
+                <td class="auto-style20" colspan="2">Editorial</td>
             </tr>
             <tr>
                 <td class="auto-style21" colspan="2">&nbsp;</td>
@@ -30,42 +30,6 @@
                             <td class="auto-style18"><strong>
                                 <asp:TextBox ID="txtNombre" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
                                 </strong>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="auto-style8">
-                        <tr>
-                            <td class="auto-style19">Edición:</td>
-                            <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtEdicion" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
-                                </strong>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="auto-style8">
-                        <tr>
-                            <td class="auto-style19">Estado:</td>
-                            <td class="auto-style18">
-                                <asp:DropDownList ID="ddlEstado" runat="server" Height="19px" Width="335px">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="auto-style8">
-                        <tr>
-                            <td class="auto-style19">Autor:</td>
-                            <td class="auto-style18">
-                                <asp:DropDownList ID="ddlAutor" runat="server" Height="19px" Width="335px">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="auto-style8">
-                        <tr>
-                            <td class="auto-style19">Editorial:</td>
-                            <td class="auto-style18">
-                                <asp:DropDownList ID="ddlEditorial" runat="server" Height="19px" Width="335px">
-                                </asp:DropDownList>
                             </td>
                         </tr>
                     </table>
@@ -104,7 +68,7 @@
             </tr>
             <tr>
                 <td class="auto-style24" colspan="2">
-                    <asp:GridView ID="grvDatosMaterial" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="98%">
+                    <asp:GridView ID="grvDatosEditorial" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="98%">
                         <AlternatingRowStyle BackColor="White" />
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -132,7 +96,7 @@
             font-size: medium;
         }
         .auto-style8 {
-            width: 756px;
+            width: 98%;
         }
         .auto-style17 {
             font-weight: bold;

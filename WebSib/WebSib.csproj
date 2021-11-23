@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CON_WebSib.xml" />
+    <Content Include="frmEditorial.aspx" />
     <Content Include="frmInicio.aspx" />
     <Content Include="frmLogin.aspx" />
     <Content Include="frmAutor.aspx" />
@@ -107,6 +108,13 @@
     <Compile Include="Clases\clsLogin.cs" />
     <Compile Include="Clases\clsMaterial.cs" />
     <Compile Include="Clases\clsUsuario.cs" />
+    <Compile Include="frmEditorial.aspx.cs">
+      <DependentUpon>frmEditorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmEditorial.aspx.designer.cs">
+      <DependentUpon>frmEditorial.aspx</DependentUpon>
+    </Compile>
     <Compile Include="frmInicio.aspx.cs">
       <DependentUpon>frmInicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

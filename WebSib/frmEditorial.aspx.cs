@@ -7,89 +7,26 @@ using System.Web.UI.WebControls;
 
 namespace webSib
 {
-    public partial class frmMaterial1 : System.Web.UI.Page
+    public partial class frmEditorial : System.Web.UI.Page
     {
         #region "Variables Globales"
         static string codigoUsu, nombreUsu;
         private static string strApp;
         private static int intOpcion;
-        private static string strCodigo;
+        private static int strCodigo;
         private static string strNombre;
-        private static string strEdicion;
-        private static int intCantidad = 1;
-        private static int intEstado;
-        private static int intAutor;
-        private static int intEditorial;
-
         #endregion
-
         #region "Métodos propios"
-
         private void Mensaje(string Texto)
         {
             this.lblMsj.Text = Texto.Trim();
         }
-
-        private void llenarComboEstado()
+        private void llenarGridEditorial()
         {
             try
             {
-                webSib.Clases.clsEstado objXX = new webSib.Clases.clsEstado(strApp);
-                if (!objXX.llenarCombo(this.ddlEstado))
-                {
-                    Mensaje(objXX.Error);
-                    objXX = null;
-                    return;
-                }
-                objXX = null;
-            }
-            catch (Exception ex)
-            {
-                Mensaje(ex.Message);
-            }
-        }
-        private void llenarComboAutor()
-        {
-            try
-            {
-                webSib.Clases.clsAutor objXX = new webSib.Clases.clsAutor(strApp);
-                if (!objXX.llenarCombo(this.ddlAutor))
-                {
-                    Mensaje(objXX.Error);
-                    objXX = null;
-                    return;
-                }
-                objXX = null;
-            }
-            catch (Exception ex)
-            {
-                Mensaje(ex.Message);
-            }
-        }
-        private void llenarComboEditorial()
-        {
-            try
-            {
-                webSib.Clases.clsEditorial objXX = new webSib.Clases.clsEditorial(strApp);
-                if (!objXX.llenarCombo(this.ddlEditorial))
-                {
-                    Mensaje(objXX.Error);
-                    objXX = null;
-                    return;
-                }
-                objXX = null;
-            }
-            catch (Exception ex)
-            {
-                Mensaje(ex.Message);
-            }
-        }
-        private void llenarGridMaterial()
-        {
-            try
-            {
-                Clases.clsMaterial objXX = new Clases.clsMaterial(strApp);
-                if (!objXX.llenarGrid(this.grvDatosMaterial))
+                Clases.clsEditorial objXX = new Clases.clsEditorial(strApp);
+                if (!objXX.llenarGrid(this.grvDatosEditorial))
                 {
                     Mensaje(objXX.Error);
                     objXX = null;
@@ -113,39 +50,21 @@ namespace webSib
                 this.lblUsu.Text = "Usuario: " + nombreUsu;
                 strApp = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
                 intOpcion = 0;
-                llenarComboEstado();
-                llenarComboAutor();
-                llenarComboEditorial();
-                this.ddlEstado.SelectedIndex = 0;
-                this.ddlEditorial.SelectedIndex = 0;
-                this.ddlAutor.SelectedIndex = 0;
                 this.txtCodigo.Enabled = true;
                 this.txtCodigo.ReadOnly = false;
                 this.txtCodigo.Focus();
                 this.txtNombre.ReadOnly = true;
-                this.txtEdicion.ReadOnly = true;
-                this.ddlEstado.Enabled = false;
-                this.ddlAutor.Enabled = false;
-                this.ddlEditorial.Enabled = false;
-                llenarGridMaterial();
+                llenarGridEditorial();
             }
         }
         private void Limpiar()
         {
             this.txtCodigo.Text = string.Empty;
             this.txtNombre.Text = string.Empty;
-            this.txtEdicion.Text = string.Empty;
-            this.ddlEstado.SelectedIndex = 0;
-            this.ddlAutor.SelectedIndex = 0;
-            this.ddlEditorial.SelectedIndex = 0;
             this.txtCodigo.Enabled = true;
             this.txtCodigo.ReadOnly = false;
             this.txtCodigo.Focus();
             this.txtNombre.ReadOnly = true;
-            this.txtEdicion.ReadOnly = true;
-            this.ddlEstado.Enabled = false;
-            this.ddlAutor.Enabled = false;
-            this.ddlEditorial.Enabled = false;
             Mensaje(string.Empty);
         }
 
@@ -153,8 +72,8 @@ namespace webSib
         {
             if (!this.txtCodigo.Text.Trim().Equals(""))
             {
-                webSib.Clases.clsMaterial objXX = new webSib.Clases.clsMaterial(strApp);
-                strCodigo = this.txtCodigo.Text;
+                webSib.Clases.clsEditorial objXX = new webSib.Clases.clsEditorial(strApp);
+                strCodigo = Convert.ToInt32(this.txtCodigo.Text);
                 if (!objXX.Buscar(strCodigo))
                 {
                     Limpiar();
@@ -164,10 +83,6 @@ namespace webSib
                 }
                 this.txtCodigo.Text = objXX.codigo.ToString();
                 this.txtNombre.Text = objXX.nombre.ToString();
-                this.txtEdicion.Text = objXX.edicion.ToString();
-                this.ddlEstado.SelectedIndex = objXX.estado - 1;
-                this.ddlAutor.SelectedIndex = objXX.autor - 1;
-                this.ddlEditorial.SelectedIndex = objXX.editorial - 1;
                 this.mnuOpciones.FindItem("opcModificar").Selectable = true;
                 this.txtCodigo.ReadOnly = true;
                 objXX = null;
@@ -187,14 +102,16 @@ namespace webSib
                     Mensaje("Opción no válida");
                     return;
                 }
-                strCodigo = this.txtCodigo.Text;
+                if (this.txtCodigo.Text.Equals(""))
+                {
+                    strCodigo = 0;
+                }
+                else
+                {
+                    strCodigo = Convert.ToInt32(this.txtCodigo.Text);
+                }
                 strNombre = this.txtNombre.Text.Trim();
-                strEdicion = this.txtEdicion.Text.Trim();
-                intEstado = this.ddlEstado.SelectedIndex + 1;
-                intAutor = this.ddlAutor.SelectedIndex + 1;
-                intEditorial = this.ddlEditorial.SelectedIndex + 1;
-                webSib.Clases.clsMaterial objXX = new webSib.Clases.clsMaterial(strApp, strCodigo, strNombre, 
-                    strEdicion, intCantidad, intEstado, intAutor, intEditorial);
+                webSib.Clases.clsEditorial objXX = new webSib.Clases.clsEditorial(strApp, strCodigo, strNombre);
                 if (intOpcion == 1) // Agregar
                 {
                     if (!objXX.grabarMaestro())
@@ -219,7 +136,7 @@ namespace webSib
                     return;
                 }
                 Mensaje("Registro Grabado con éxito");
-                llenarGridMaterial();
+                llenarGridEditorial();
             }
             catch (Exception ex)
             {
@@ -260,13 +177,9 @@ namespace webSib
                     Limpiar();
                     this.btnGuardar.Visible = true;
                     this.btnCancelar.Visible = true;
-                    this.txtCodigo.ReadOnly = false;
+                    this.txtCodigo.ReadOnly = true;
                     this.txtCodigo.Focus();
                     this.txtNombre.ReadOnly = false;
-                    this.txtEdicion.ReadOnly = false;
-                    this.ddlEstado.Enabled = true;
-                    this.ddlAutor.Enabled = true;
-                    this.ddlEditorial.Enabled = true;
                     this.mnuOpciones.FindItem("opcModificar").Selectable = false;
                     break;
                 case "opcModificar":
@@ -276,20 +189,12 @@ namespace webSib
                     this.txtCodigo.ReadOnly = true;
                     this.txtNombre.ReadOnly = false;
                     this.txtNombre.Focus();
-                    this.txtEdicion.ReadOnly = false;
-                    this.ddlEstado.Enabled = true;
-                    this.ddlAutor.Enabled = true;
-                    this.ddlEditorial.Enabled = true;
                     break;
                 case "opcBuscar":
                     intOpcion = 0;
                     Buscar();
                     this.txtCodigo.Focus();
                     this.txtNombre.ReadOnly = true;
-                    this.txtEdicion.ReadOnly = true;
-                    this.ddlEstado.Enabled = false;
-                    this.ddlAutor.Enabled = false;
-                    this.ddlEditorial.Enabled = false;
                     break;
                 case "opcLimpiar":
                     Limpiar();
