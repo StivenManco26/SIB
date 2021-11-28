@@ -96,6 +96,15 @@ namespace webSib
         protected global::System.Web.UI.WebControls.DropDownList ddlMaterialEstado;
 
         /// <summary>
+        /// Control txtIdReserva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIdReserva;
+
+        /// <summary>
         /// Control lblHoraPres.
         /// </summary>
         /// <remarks>
@@ -141,6 +150,15 @@ namespace webSib
         protected global::System.Web.UI.WebControls.Button btnBuscarprestamo;
 
         /// <summary>
+        /// Control Button1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+
+        /// <summary>
         /// Control btnIngresarPrestamo.
         /// </summary>
         /// <remarks>
@@ -148,6 +166,15 @@ namespace webSib
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnIngresarPrestamo;
+
+        /// <summary>
+        /// Control btnIngresarPrestamoReserva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnIngresarPrestamoReserva;
 
         /// <summary>
         /// Control mnuOpciones.
@@ -166,6 +193,15 @@ namespace webSib
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grvDatosPrestamo;
+
+        /// <summary>
+        /// Control grvReserva.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grvReserva;
 
         /// <summary>
         /// Control ScriptManager1.

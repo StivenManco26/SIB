@@ -44,7 +44,7 @@
                             </td>
                             <td class="auto-style19">Nombre Libro: </td>
                             <td class="auto-style18">
-                                <asp:Label ID="lblNombreLibro" runat="server" BorderStyle="Outset" Width="213px"></asp:Label>
+                                <asp:Label ID="lblNombreLibro" runat="server" BorderStyle="Outset" Width="224px"></asp:Label>
                             </td>
                         </tr>
                     </table>
@@ -55,7 +55,10 @@
                                 <asp:DropDownList ID="ddlMaterialEstado" runat="server" Height="19px" Width="144px">
                                 </asp:DropDownList>
                             </td>
-
+                            <td class="auto-style19">Id Reserva:</td>
+                            <td class="auto-style18"><strong>
+                                <asp:TextBox ID="txtIdReserva" runat="server" CssClass="auto-style17" Width="100px"></asp:TextBox>
+                            </td>
                         </tr>
                     </table>
                     <table class="auto-style8">
@@ -86,19 +89,24 @@
                         <tr>
                             <td class="auto-style19">
                                 <asp:Button ID="btnBuscarprestamo" runat="server" OnClick="btnBuscarprestamo_Click" Text="Buscar Prestamo" Width="114px" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;
                             </td>
                             
                             <td class="auto-style18">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <asp:Button ID="btnIngresarPrestamo" runat="server" Text="Ingresar Prestamo" OnClick="btnIngresarPrestamo_Click" />
-                            </td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button1" runat="server" Text="Buscar Reserva" Width="105px" OnClick="Button1_Click" />
+                                </td>
                         </tr>
                     </table>
                     <table class="auto-style8">
                         <tr>
-                            <td class="auto-style19">&nbsp;</td>
-                            <td class="auto-style18">&nbsp;</td>
+                            <td class="auto-style20">                             
+                                <asp:Button ID="btnIngresarPrestamo" runat="server" Text="Ingresar Prestamo" OnClick="btnIngresarPrestamo_Click" />
+                                &nbsp
+                                 <asp:Button ID="btnIngresarPrestamoReserva" runat="server" Text="Ingresar Prestamo con reserva" OnClick="btnIngresarPrestamoReserva_Click" />
+                            
+                            </td>
+
                         </tr>
                     </table>
                 </td>
@@ -123,7 +131,11 @@
                 <td class="auto-style24">
                     <asp:GridView ID="grvDatosPrestamo" runat="server" Width="98%">
                     </asp:GridView>
+
+                    <asp:GridView ID="grvReserva" runat="server" Width="95%">
+                    </asp:GridView>
                 </td>
+
             </tr>
             <tr>
                 <td class="auto-style26">
@@ -157,17 +169,14 @@
             width: 377px;
             text-align: right;
         }
-
         .auto-style13 {
             color: #FF0000;
             font-size: small;
         }
-
         .auto-style20 {
             height: 27px;
             width: 771px;
         }
-
         .auto-style21 {
             width: 771px;
         }
@@ -175,18 +184,14 @@
             width: 771px;
             height: 77px;
         }
-
         .auto-style25 {
             height: 27px;
             width: 771px;
             text-align: right;
         }
-
         .auto-style26 {
             width: 771px;
             height: 20px;
         }
-
         </style>
 </asp:Content>
-

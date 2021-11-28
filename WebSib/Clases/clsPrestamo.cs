@@ -16,9 +16,13 @@ namespace webSib.Clases
         public DateTime FechaPres { set; get; }
         public DateTime FechaDevo { set; get; }
         public DateTime FechaRegi { set; get; }
+        public DateTime FechaReserva { set; get; }
         public string CodigoMat { set; get; }
         public int IdEstadoMaterial { set; get; }
         public string EstadoMaterial { set; get; }
+        public string EstadoReserva { set; get; }
+        public int RespuestaRes { set; get; }
+        public int RespuestaPres { set; get; }
         public string Nit { set; get; }
         public int IdReserva { set; get; }
         public int Numero { set; get; }
@@ -45,10 +49,11 @@ namespace webSib.Clases
             FechaPres = DateTime.Now.Date;
             FechaDevo = DateTime.Now.Date;
             FechaRegi = DateTime.Now.Date;
+            FechaReserva = DateTime.Now.Date;
             CodigoMat = string.Empty;
             IdEstadoMaterial = 1;
             Nit = string.Empty;
-            IdReserva = 1;
+            IdReserva = 0;
             Numero = 0;
             Nombre = string.Empty;
             CantPrestamo = 0;
@@ -70,7 +75,7 @@ namespace webSib.Clases
             CodigoMat = codigoMat;
             IdEstadoMaterial = idEstadoMaterial;
             Nit = nit;
-            IdReserva = 1;
+            IdReserva = idReserva;
             Numero = 0;
             Material = string.Empty;
             CantPrestamo = 0;
@@ -81,6 +86,7 @@ namespace webSib.Clases
             Error = string.Empty;
 
         }
+
         #endregion
 
         #region "métodos privados"
@@ -117,8 +123,49 @@ namespace webSib.Clases
                 Error = "Maximo de prestamos permitido ";
                 return false;
             }
+            if(RespuestaRes==0)
+            {
+                Error = "El codigo "+CodigoMat+" Ya tiene una reserva activa";
+                return false;
+            }
             return true;
         }
+
+        private bool ValidarDatosReserva()
+        {
+            if (FechaPres < DateTime.Now.Date)
+            {
+                Error = "Fecha de prestamo no válida";
+                return false;
+            }
+            if (FechaPres > Convert.ToDateTime(FechaDevo))
+            {
+                Error = "Fecha de Devolucion no válida";
+                return false;
+            }
+            if (FechaRegi > DateTime.Now.Date)
+            {
+                Error = "Fecha de registro no válida";
+                return false;
+            }
+
+            if (CantPrestamo > MaxCantPres)
+            {
+                Error = "Maximo de prestamos permitido ";
+                return false;
+            }
+            if (RespuestaPres == 0)
+            {
+                Error = "El codigo " + CodigoMat + " Ya tiene un Prestamo activo";
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
 
         private bool ValidarDatosMaestro()
         {
@@ -287,16 +334,16 @@ namespace webSib.Clases
         }
 
 
-        public bool BuscarPrestamo(int nit, GridView grid)  //BuscarPrestamo
+        public bool BuscarPrestamo(string nit, GridView grid)  //BuscarPrestamo
         {
             try
             {
-                if (nit <= 0 || grid == null)
+                if (nit == "" || grid == null)
                 {
-                    Error = "Nro. de Prestamo no Válido";
+                    Error = "Nro. de Prestamo no Válido o nit vacío";
                     return false;
                 }
-                strSQL = "EXEC sp_buscar_prestamo_persona " + nit + ";";
+                strSQL = "EXEC sp_buscar_prestamo_persona '" + nit + "';";
                 clsGeneralesBD objCnx = new clsGeneralesBD(strApp);
                 objCnx.SQL = strSQL;
                 if (!objCnx.llenarDataSet(false))
@@ -325,6 +372,60 @@ namespace webSib.Clases
                 FechaPres = Convert.ToDateTime(dr["fechaPrestamo"]);               
                 FechaDevo = Convert.ToDateTime(dr["fechaDevolucion"]);
                 FechaRegi = Convert.ToDateTime(dr["fechaRegistro"]);
+                //Mydt.Clear();
+                //Mydt = Myds.Tables[1];            
+                grid.DataSource = Mydt;
+                grid.DataBind();
+                grid.GridLines = GridLines.Both;
+                grid.CellPadding = 1;
+                grid.ForeColor = System.Drawing.Color.Black;
+                grid.BackColor = System.Drawing.Color.Beige;
+                grid.AlternatingRowStyle.BackColor = System.Drawing.Color.Gainsboro;
+                grid.HeaderStyle.BackColor = System.Drawing.Color.Aqua;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                return false;
+            }
+        }
+
+        public bool BuscarReservaPersona(/*string codigoMat,*/ string nit, GridView grid)  //BuscarPrestamo
+        {
+            try
+            {
+                if (nit == "" || grid == null)
+                {
+                    Error = "Nro. de Reserva no Válido o nit vacío";
+                    return false;
+                }
+                strSQL = "EXEC sp_cargar_reserva_persona '" /* + codigoMat +"','"*/+ nit + "';";
+                clsGeneralesBD objCnx = new clsGeneralesBD(strApp);
+                objCnx.SQL = strSQL;
+                if (!objCnx.llenarDataSet(false))
+                {
+                    Error = objCnx.Error;
+                    objCnx.cerrarCnx();
+                    objCnx = null;
+                    return false;
+                }
+                Myds = objCnx.dataSetLleno;
+                objCnx = null;
+                Mydt = Myds.Tables[0];
+                if (Mydt.Rows.Count <= 0)
+                {
+                    Error = "No existe Reserva para el Documento: " + nit /*+ " y el libro" + codigoMat*/;
+                    Myds.Clear();
+                    Myds = null;
+                    return false;
+                }
+                DataRow dr = Mydt.Rows[0];
+                IdReserva = Convert.ToInt32(dr["Reserva"]);
+                Material = dr["Material"].ToString();
+                FechaReserva = Convert.ToDateTime(dr["Fecha reserva"]);
+                EstadoReserva = dr["Estado"].ToString();
+  
                 //Mydt.Clear();
                 //Mydt = Myds.Tables[1];            
                 grid.DataSource = Mydt;
@@ -380,12 +481,92 @@ namespace webSib.Clases
             }
         }
 
+        public bool BuscarReservaMaterial(string codigoMaterial)
+        {
+            try
+            {
+                strSQL = "EXEC sp_validar_reserva_por_Material '" + codigoMaterial + "';";
+                clsGeneralesBD objCnx = new clsGeneralesBD(strApp);
+                objCnx.SQL = strSQL;
+                if (!objCnx.Consultar(false))
+                {
+                    Error = objCnx.Error;
+                    objCnx.cerrarCnx();
+                    objCnx = null;
+                    return false;
+                }
+                MyReader = objCnx.dataReaderLleno;
+                if (!MyReader.HasRows)
+                {
+                    Error = "No existe registro con codigo: " + codigoMaterial;
+                    objCnx.cerrarCnx();
+                    objCnx = null;
+                    return false;
+                }
+                MyReader.Read();
+                RespuestaRes = Convert.ToInt32(MyReader.GetString(0));
+                MyReader.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                return false;
+            }
+        }
+
+        public bool BuscarPrestamoMaterial(string codigoMaterial)
+        {
+            try
+            {
+                strSQL = "EXEC sp_validar_prestamo '" + codigoMaterial + "';";
+                clsGeneralesBD objCnx = new clsGeneralesBD(strApp);
+                objCnx.SQL = strSQL;
+                if (!objCnx.Consultar(false))
+                {
+                    Error = objCnx.Error;
+                    objCnx.cerrarCnx();
+                    objCnx = null;
+                    return false;
+                }
+                MyReader = objCnx.dataReaderLleno;
+                if (!MyReader.HasRows)
+                {
+                    Error = "No existe registro con codigo: " + codigoMaterial;
+                    objCnx.cerrarCnx();
+                    objCnx = null;
+                    return false;
+                }
+                MyReader.Read();
+                RespuestaPres = Convert.ToInt32(MyReader.GetString(0));
+                MyReader.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                return false;
+            }
+        }
 
         public bool grabarPrestamo() //grabarMaestro
         {
             if (!ValidarDatos())
+                return false;                
+            
+            strSQL = "EXEC sp_Ingresar_Prestamo '" + CodigoMat + "'," + IdEstadoMaterial + ",'" + Nit + "' ," + IdReserva + ",'" + "" + FechaDevo + "';";
+            if (!Grabar())
                 return false;
-            strSQL = "EXEC sp_Ingresar_Prestamo '" + CodigoMat + "'," + IdEstadoMaterial + ",'" + Nit + "' ," + IdReserva + ",'" + ""+ FechaDevo + "';";
+
+            return true;
+        }
+
+        public bool grabarReservaPrestamo() //grabarMaestro
+        {
+            if (!ValidarDatosReserva())
+                return false;
+
+            strSQL = "EXEC sp_Ingresar_Prestamo_con_Reserva " + IdReserva + "," + IdEstadoMaterial + ",'" + FechaDevo + "';";
             if (!Grabar())
                 return false;
 

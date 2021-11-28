@@ -16,13 +16,14 @@ namespace webSib
         private static int intOpcion;
         private static string strCodigoLibro;
         private static string strNit;
-        private static int intNit;
+        private static Int64 intNit;
         private static int intIdReserva;
         private static int intCantPrestamo;
         private DateTime FechaDevolucion;
         private DateTime FechaDe;
         private static int intIdEstadoMaterial;
         private static string strEstadoMaterial;
+        private static string strEstadoReserva;
         private static DateTime Nuevafecha;
         #endregion
 
@@ -67,7 +68,7 @@ namespace webSib
                 this.ddlMaterialEstado.SelectedIndex = 0;
                 lblHoraPres.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 lblFechaDevo.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                lblFechaRegistro.Text = DateTime.Now.ToString("dd/MM/yyyy");             
+                lblFechaRegistro.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 //llenarGridProductos();
             }
         }
@@ -135,13 +136,23 @@ namespace webSib
 
         private void BuscarPrestamo()
         {
-
+            grvReserva.Visible = false;
             grvDatosPrestamo.Visible = true;
             if (intOpcion == 2)
                 this.grvDatosPrestamo.Columns[0].Visible = true;
             webSib.Clases.clsPrestamo objXX = new webSib.Clases.clsPrestamo(strApp);
-            intNit = Convert.ToInt32( this.txtNit.Text);
-            if(!objXX.BuscarPrestamo(intNit, this.grvDatosPrestamo))
+
+
+            if( txtNit.Text =="")   
+            {
+                Mensaje("No se puede buscar porque no digitaste el nit");
+            }
+            else
+            {
+                intNit = Convert.ToInt64(this.txtNit.Text);
+            }
+            
+            if(!objXX.BuscarPrestamo( Convert.ToString(intNit), this.grvDatosPrestamo))
             {
                 Mensaje(objXX.Error);
                 objXX = null;
@@ -223,6 +234,97 @@ namespace webSib
 
         }
 
+        private void IngresarPrestamoReserva()
+        {
+            LimpiarGrid();
+            try
+            {
+                if (intOpcion != 0 && intOpcion != 1)
+                {
+                    Mensaje("Opción no válida");
+                    return;
+                }
+                DateTime FechaDe = DateTime.Now;
+                FechaDevolucion.Date.ToShortTimeString();
+                intIdEstadoMaterial = this.ddlMaterialEstado.SelectedIndex + 1;
+                intIdReserva = Convert.ToInt32(this.txtIdReserva.Text);
+                FechaDevolucion = Convert.ToDateTime(lblFechaDevo.Text.ToString());
+                webSib.Clases.clsPrestamo objXX = new webSib.Clases.clsPrestamo(strApp, strCodigoLibro,
+                    intIdEstadoMaterial, strNit, intIdReserva, FechaDevolucion = Convert.ToDateTime(lblFechaDevo.Text.ToString()));
+                BuscarCantidad();
+                if (intCantPrestamo >= Convert.ToInt32(lblMaxCantPrestamo.Text))
+                {
+                    Mensaje("Error, El usuario llegó al maximo de prestamos permitidos");
+                    return;
+                }
+                if (intOpcion == 0) // Agregar
+                {
+                    if (!objXX.grabarReservaPrestamo())
+                    {
+                        Mensaje(objXX.Error);
+                        objXX = null;
+                        return;
+                    }
+                    strNit = objXX.Nit;
+                }
+                else // Modificar
+                if (!objXX.modificarMaestro())
+                {
+                    Mensaje(objXX.Error);
+                    return;
+                }
+                strNit = objXX.Nit;
+                objXX = null;
+                if (strNit.Equals("0"))
+                {
+                    Mensaje("Error al procesar registro, Consultar con el administrador del sistema");
+                    return;
+                }
+                Mensaje("Registro Grabado con éxito");
+            }
+            catch (Exception ex)
+            {
+                Mensaje(ex.Message);
+            }
+
+        }
+
+
+
+
+
+
+
+        private void BuscarReservaPersona()
+        {
+            grvReserva.Visible = true;
+            grvDatosPrestamo.Visible = false;
+            if (intOpcion == 2)
+                this.grvReserva.Columns[0].Visible = true;
+            webSib.Clases.clsPrestamo objXX = new webSib.Clases.clsPrestamo(strApp);
+
+
+            if (txtNit.Text == "")
+            {
+                Mensaje("No se puede buscar porque no digitaste el nit");
+            }
+            else
+            {
+                intNit = Convert.ToInt64(this.txtNit.Text);
+                strCodigoLibro= this.txtCodigoLibro.Text;
+            }
+
+            if (!objXX.BuscarReservaPersona(/*strCodigoLibro, */Convert.ToString(intNit), this.grvReserva))
+            {
+                Mensaje(objXX.Error);
+                objXX = null;
+                return;
+            }
+            lblMsj.Text = string.Empty;
+
+            objXX = null;
+        }
+
         protected void tmrHoraActual_Tick(object sender, EventArgs e)
         {
 
@@ -249,6 +351,16 @@ namespace webSib
         protected void btnIngresarPrestamo_Click(object sender, EventArgs e)
         {
             IngresarPrestamo();
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            BuscarReservaPersona();
+        }
+
+        protected void btnIngresarPrestamoReserva_Click(object sender, EventArgs e)
+        {
+            IngresarPrestamoReserva();
         }
 
         protected void mnuOpciones_MenuItemClick1(object sender, MenuEventArgs e)
