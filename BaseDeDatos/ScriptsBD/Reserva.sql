@@ -9,39 +9,42 @@ BEGIN
 END
 GO
 
+--EXEC sp_consultar_Reserva_estado
+
 
 CREATE PROCEDURE sp_cancelar_Reserva
-@idReserva INT
+@codMaterial VARCHAR(30),
+@nit VARCHAR(30)
 AS
 BEGIN
 
-IF EXISTS (SELECT * FROM tblReserva WHERE id=@idReserva)
+IF EXISTS (SELECT * FROM tblReserva WHERE codigoMat=@codMaterial AND nit=@nit)
 BEGIN
 
-	BEGIN TRANSACTION tx
+ BEGIN TRANSACTION tx
 
-		UPDATE tblReserva
-		SET idEstado=2
-		WHERE id=@idReserva
+ UPDATE tblReserva
+SET idEstado=2
+WHERE codigoMat=@codMaterial AND nit=@nit
 
-		IF ( @@ERROR > 0 )
-		BEGIN
-			ROLLBACK TRANSACTION tx
-			SELECT 0 AS Rpta
-			RETURN
-		END
-
-	COMMIT TRANSACTION tx
-	SELECT 1 AS Rpta
-	RETURN
-
-END
-ELSE 
-	SELECT 0 AS Rpta
-	RETURN
+ IF ( @@ERROR > 0 )
+BEGIN
+ROLLBACK TRANSACTION tx
+SELECT 0 AS Rpta
+RETURN
 END
 
---EXEC sp_cancelar_Reserva 1
+ COMMIT TRANSACTION tx
+SELECT 1 AS Rpta
+RETURN
+
+END
+ELSE
+SELECT 0 AS Rpta
+RETURN
+END
+
+--EXEC sp_cancelar_Reserva 'CAS0001','1152704820'
 GO
 
 
@@ -54,6 +57,24 @@ AS
 BEGIN
 
 --Se debe validar que la fecha ingresada sea superior a la fecha actual para poder ejecutar este sp
+
+	IF NOT EXISTS(SELECT id FROM tblPersona WHERE nit=@nit)
+	BEGIN
+		SELECT 2 AS Rpta--, 'El documento ingresado no existe' Dato
+		RETURN
+	END
+
+	IF NOT EXISTS(SELECT codigo FROM tblMaterial WHERE codigo=@codMaterial)
+	BEGIN
+		SELECT 3 AS Rpta--, 'El material ingresado no existe' Dato
+		RETURN
+	END
+
+	IF (ISDATE(@fechaReserva)=0)
+	BEGIN
+		SELECT 6 AS Rpta--, 'La fecha no es válida' Dato
+		RETURN
+	END
 
 	DECLARE @MaxPrestamo INT
 	DECLARE @CantPrestamo INT
@@ -72,7 +93,7 @@ BEGIN
 
 		IF (@CantPrestamo>=@MaxPrestamo)
 		BEGIN
-			SELECT 0 AS Rpta, 'El usuario excede la cantidad de prestamos permitidos' Msj
+			SELECT 4 AS Rpta--, 'El usuario excede la cantidad de prestamos permitidos' Dato
 			RETURN
 		END
 
@@ -101,7 +122,7 @@ BEGIN
 
 	IF (@control=1)
 	BEGIN
-		SELECT 0 AS Rpta, 'El material se encuentra reservado para la fecha ingresada' Msj
+		SELECT 5 AS Rpta--, 'El material se encuentra reservado para la fecha ingresada' Dato
 		RETURN
 	END
 
@@ -113,12 +134,12 @@ BEGIN
 		IF ( @@ERROR > 0 )
 		BEGIN
 			ROLLBACK TRANSACTION tx
-			SELECT 0 AS Rpta, 'Error al ingresar' Msj
+			SELECT 0 AS Rpta--, 'Error al ingresar' Dato
 			RETURN
 		END
 
 	COMMIT TRANSACTION tx
-	SELECT 1 AS Rpta,'Ingresado correctamente' Msj
+	SELECT 1 AS Rpta--,'Ingresado correctamente' Dato
 	RETURN
 
 	END
