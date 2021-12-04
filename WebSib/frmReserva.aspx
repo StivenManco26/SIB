@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="frmUsuarios.aspx.cs" Inherits="webSib.Formulario_web22" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="frmReserva.aspx.cs" Inherits="webSib.frmReserva" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cuerpo" runat="server">
     <table class="auto-style2">
         <tbody class="auto-style7">
@@ -8,7 +8,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style20" colspan="2">Usuarios</td>
+                <td class="auto-style20" colspan="2">Reserva</td>
             </tr>
             <tr>
                 <td class="auto-style21" colspan="2">&nbsp;</td>
@@ -17,63 +17,37 @@
                 <td class="auto-style21" colspan="2">
                     <table class="auto-style8">
                         <tr>
+                            <td class="auto-style19">Código libro:</td>
+                            <td class="auto-style18"><strong>
+                                <asp:TextBox ID="txtCodigo" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="auto-style8">
+                        <tr>
                             <td class="auto-style19">Documento:</td>
                             <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtNit" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
+                                <asp:TextBox ID="txtDocumento" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
                     </table>
                     <table class="auto-style8">
                         <tr>
-                            <td class="auto-style19">Nombre:</td>
-                            <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtNombre" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
-                                </strong>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="auto-style8">
-                        <tr>
-                            <td class="auto-style19">Correo:</td>
-                            <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtCorreo" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
-                                </strong>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="auto-style8">
-                        <tr>
-                            <td class="auto-style19">Celular:</td>
-                            <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtCelular" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
-                                </strong>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="auto-style8">
-                        <tr>
-                            <td class="auto-style19">Perfil:</td>
+                            <td class="auto-style19">Estado de reserva:</td>
                             <td class="auto-style18">
-                                <asp:DropDownList ID="ddlPerfil" runat="server" Height="19px" Width="335px">
+                                <asp:DropDownList ID="ddlEstadoReserva" runat="server" Height="19px" Width="335px">
                                 </asp:DropDownList>
                             </td>
                         </tr>
                     </table>
                     <table class="auto-style8">
                         <tr>
-                            <td class="auto-style19">Usuario:</td>
-                            <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtUsuario" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
-                                </strong>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="auto-style8">
-                        <tr>
-                            <td class="auto-style19">Contraseña:</td>
-                            <td class="auto-style18"><strong>
-                                <asp:TextBox ID="txtContrasena" runat="server" CssClass="auto-style17" Width="335px"></asp:TextBox>
+                            <td class="auto-style28">Fecha de reserva:</td>
+                            <td class="auto-style29">
+                                <strong>
+                                <asp:TextBox ID="txtFecha" runat="server" CssClass="auto-style17" Width="335px" TextMode="Date"></asp:TextBox>
                                 </strong>
                             </td>
                         </tr>
@@ -94,15 +68,15 @@
             </tr>
             <tr>
                 <td class="auto-style20" colspan="2">
+                <asp:Label ID="lblMsj" runat="server" CssClass="auto-style13"></asp:Label>
                     </td>
             </tr>
             <tr>
                 <td class="auto-style20" colspan="2">
                 <asp:Menu ID="mnuOpciones" runat="server" BorderStyle="Solid" BorderWidth="2px" DynamicHorizontalOffset="2" Font-Bold="True" Font-Names="Century Gothic" Font-Size="Small" Orientation="Horizontal" RenderingMode="Table" Width="100%" OnMenuItemClick="mnuOpciones_MenuItemClick1">
                     <Items>
-                        <asp:MenuItem Text="Buscar" Value="opcBuscar"></asp:MenuItem>
-                        <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
-                        <asp:MenuItem Text="Modificar" Value="opcModificar" Selectable="False"></asp:MenuItem>
+                        <asp:MenuItem Text="Ingresar reserva" Value="opcAgregar"></asp:MenuItem>
+                        <asp:MenuItem Text="Cancelar reserva" Value="opcCancelar"></asp:MenuItem>
                         <asp:MenuItem Text="Limpiar" Value="opcLimpiar"></asp:MenuItem>
                     </Items>
                     <StaticHoverStyle BorderStyle="Solid" BorderWidth="2px" ForeColor="Black" />
@@ -112,12 +86,11 @@
             </tr>
             <tr>
                 <td class="auto-style24" colspan="2">
-                    &nbsp;</td>
+                </td>
             </tr>
             <tr>
                 <td class="auto-style21" colspan="2">
-                <asp:Label ID="lblMsj" runat="server" CssClass="auto-style13"></asp:Label>
-                </td>
+                    &nbsp;</td>
             </tr>
         </tbody>
     </table>
@@ -176,6 +149,17 @@
             width: 579px;
             height: 28px;
             text-align: right;
+        }
+
+        .auto-style28 {
+            width: 377px;
+            text-align: right;
+            height: 34px;
+        }
+        .auto-style29 {
+            width: 377px;
+            text-align: left;
+            height: 34px;
         }
 
         </style>
