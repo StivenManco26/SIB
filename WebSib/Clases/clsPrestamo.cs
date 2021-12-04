@@ -151,14 +151,14 @@ namespace webSib.Clases
 
             if (CantPrestamo > MaxCantPres)
             {
-                Error = "Maximo de prestamos permitido ";
+                Error = "Maximo de prestamos permitido";
                 return false;
             }
-            if (RespuestaPres == 0)
-            {
-                Error = "El codigo " + CodigoMat + " Ya tiene un Prestamo activo";
-                return false;
-            }
+            //if (RespuestaPres == 0)
+            //{
+            //    Error = "El codigo " + CodigoMat + " Ya tiene un Prestamo activo";
+            //    return false;
+            //}
             return true;
         }
 

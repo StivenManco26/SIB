@@ -69,6 +69,8 @@ namespace webSib
                 lblHoraPres.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 lblFechaDevo.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 lblFechaRegistro.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                btnIngresarPrestamo.Enabled = false;
+                btnIngresarPrestamoReserva.Enabled = false;
                 //llenarGridProductos();
             }
         }
@@ -84,6 +86,11 @@ namespace webSib
         private void LimpiarGrid()
         {
             grvDatosPrestamo.Visible = false;
+            grvDatosPrestamo.DataSource = "";
+            grvDatosPrestamo.Columns.Clear();
+            grvReserva.Visible = false;
+            grvReserva.DataSource = "";
+            grvReserva.Columns.Clear();
             Mensaje(string.Empty);
         }
 
@@ -136,8 +143,10 @@ namespace webSib
 
         private void BuscarPrestamo()
         {
-            grvReserva.Visible = false;
+            grvReserva.Visible = false;          
             grvDatosPrestamo.Visible = true;
+            btnIngresarPrestamo.Enabled = true;
+            btnIngresarPrestamoReserva.Enabled = false;
             if (intOpcion == 2)
                 this.grvDatosPrestamo.Columns[0].Visible = true;
             webSib.Clases.clsPrestamo objXX = new webSib.Clases.clsPrestamo(strApp);
@@ -293,12 +302,12 @@ namespace webSib
 
 
 
-
-
         private void BuscarReservaPersona()
         {
             grvReserva.Visible = true;
             grvDatosPrestamo.Visible = false;
+            btnIngresarPrestamo.Enabled = false;
+            btnIngresarPrestamoReserva.Enabled = true;
             if (intOpcion == 2)
                 this.grvReserva.Columns[0].Visible = true;
             webSib.Clases.clsPrestamo objXX = new webSib.Clases.clsPrestamo(strApp);
