@@ -168,7 +168,7 @@ namespace webSib
                 return;
             }
             lblMsj.Text = string.Empty;
-
+            
             objXX = null;
         }
         private void BuscarCantidad()

@@ -129,10 +129,27 @@
             </tr>
             <tr>
                 <td class="auto-style24">
-                    <asp:GridView ID="grvDatosPrestamo" runat="server" Width="98%">
+                    <asp:GridView ID="grvDatosPrestamo" runat="server" Width="98%" DataField="fechaPrestamo" DataFormatString="{0:d}" HeaderText="fechaPrestamo" AutoGenerateColumns="False">
+                        <Columns>
+                            <asp:BoundField DataField="id" HeaderText="id" />
+                            <asp:BoundField DataField="codigoMat" HeaderText="codigo material" />
+                            <asp:BoundField DataField="estado" HeaderText="id estado material" />
+                            <asp:BoundField DataField="nit" HeaderText="nit" />
+                            <asp:BoundField DataField="idReserva" HeaderText="id reserva" />
+                            <asp:BoundField DataField="fechaPrestamo" DataFormatString="{0:d}" HeaderText="fecha prestamo" />
+                            <asp:BoundField DataField="fechaDevolucion" DataFormatString="{0:d}" HeaderText="fecha devolucion" />
+                            <asp:BoundField DataField="fechaRegistro" DataFormatString="{0:d}" HeaderText="fecha registro" />
+                        </Columns>
                     </asp:GridView>
 
-                    <asp:GridView ID="grvReserva" runat="server" Width="95%">
+
+                    <asp:GridView ID="grvReserva" runat="server" Width="95%" AutoGenerateColumns="False">
+                        <Columns>
+                            <asp:BoundField DataField="Reserva" HeaderText="Reserva" />
+                            <asp:BoundField DataField="Material" HeaderText="Material" />
+                            <asp:BoundField DataField="Fecha reserva" DataFormatString="{0:d}" HeaderText="Fecha reserva" />
+                            <asp:BoundField DataField="Estado" HeaderText="Estado" />
+                        </Columns>
                     </asp:GridView>
                 </td>
 
