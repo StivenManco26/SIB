@@ -407,7 +407,7 @@ ELSE
 	RETURN
 END
 
---EXEC sp_ingresar_autor 'Gabriel garcia marquez'
+--EXEC sp_ingresar_Mat_autor 'Gabriel garcia marquez'
 GO
 
 
@@ -441,7 +441,7 @@ ELSE
 	RETURN
 END
 
---EXEC sp_ingresar_productor 'planeta'
+--EXEC sp_ingresar_Mat_productor 'planeta'
 GO
 
 
@@ -526,7 +526,79 @@ END
 GO
 
 
---MPODULO RESERVA------------------------------------------------------
+CREATE PROCEDURE sp_actualizar_autor
+@id INT,
+@nombre VARCHAR(200)
+AS
+BEGIN
+
+IF EXISTS (SELECT id FROM tblMaterialAutor WHERE id=@id)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		UPDATE tblMaterialAutor
+		SET autor=UPPER(@nombre)
+		WHERE id=@id;
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+--EXEC sp_actualizar_autor 1,'GABO'
+GO
+
+
+CREATE PROCEDURE sp_actualizar_productor
+@id INT,
+@nombre VARCHAR(200)
+AS
+BEGIN
+
+IF EXISTS (SELECT id FROM tblMaterialProductor WHERE id=@id)
+BEGIN
+
+	BEGIN TRANSACTION tx
+
+		UPDATE tblMaterialProductor
+		SET productor=UPPER(@nombre)
+		WHERE id=@id;
+
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+--EXEC sp_actualizar_productor 1,'Editorial Planeta S.A.S'
+GO
+
+
+--MOODULO RESERVA------------------------------------------------------
 CREATE PROCEDURE sp_consultar_Reserva_estado
 AS
 BEGIN
@@ -653,3 +725,212 @@ BEGIN
 
 	--EXEC sp_ingresar_Reserva 'CAS0001','1152704820',1,'3191234567',1,'01/12/2021'
 GO
+
+
+
+--MODULO PRESTAMO ----------------------------
+
+CREATE PROCEDURE [dbo].[sp_Contar_Prestamo]
+@nit VARCHAR(30)
+AS
+BEGIN
+	SELECT COUNT(nit) 
+	FROM tblPrestamo
+	WHERE nit = @nit
+	--EXEC sp_contar_Prestamo '1152704820'
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[sp_buscar_prestamo_persona]
+@nit VARCHAR(30)
+AS
+BEGIN
+	SELECT P.id,P.nit,PE.nombre,P.codigoMat,ME.estado,ISNULL(P.idReserva,0) idReserva,
+	CONVERT(DATE,P.fechaPrestamo,3) fechaPrestamo,CONVERT(DATE,P.fechaDevolucion,1) fechaDevolucion,
+	CONVERT(DATE,P.fechaRegistro,3) fechaRegistro
+	FROM tblPrestamo P
+	INNER JOIN tblPersona PE ON P.nit=PE.nit
+	INNER JOIN tblMaterialEstado ME on P.idEstadoMat=ME.id
+	WHERE P.nit = @nit
+	--EXEC sp_buscar_prestamo_persona '1152704820'
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[sp_Ingresar_Prestamo]
+@codigoMat VARCHAR(30),
+@idEstadoMat INT,
+@nit VARCHAR(30),
+@idReserva INT,
+@FechaDevolucion DATETIME
+AS 
+BEGIN	
+
+	IF EXISTS (SELECT nit FROM tblSancion WHERE nit=@nit GROUP BY nit)
+	BEGIN 
+		SELECT 0 AS Rpta
+		RETURN
+	END
+
+	BEGIN TRANSACTION tx
+
+	INSERT INTO tblPrestamo(codigoMat,idEstadoMat,nit,idReserva,fechaPrestamo,fechaDevolucion,fechaRegistro)
+	VALUES (@codigoMat,@idEstadoMat,@nit,@idReserva,GETDATE(),CONVERT(DATE,@FechaDevolucion,3),GETDATE())
+
+	IF ( @@ERROR > 0 )
+	BEGIN
+		ROLLBACK TRANSACTION tx
+		SELECT 0 AS Rpta
+		RETURN
+	END
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+GO
+
+CREATE PROCEDURE sp_validar_reserva_prestamo
+@codigoMat VARCHAR(30),
+@nit VARCHAR(30)
+AS
+BEGIN
+
+DECLARE @fechaReserva DATE
+DECLARE @fechaDevolucion DATE
+
+SELECT @fechaDevolucion=CONVERT(DATE,DATEADD(DAY,PE.diasPrestamo,GETDATE()))
+FROM tblPersona P
+INNER JOIN tblPerfil PE ON P.perfil=PE.id 
+
+SELECT @fechaReserva=CONVERT(DATE,DATEADD(DAY,PE.diasPrestamo,R.fechaReserva))
+FROM tblReserva R
+INNER JOIN tblPersona P ON R.nit=P.nit
+INNER JOIN tblPerfil PE ON P.perfil=PE.id
+WHERE R.codigoMat=@codigoMat AND R.idEstado=1
+
+IF(@fechaReserva BETWEEN CONVERT(DATE,GETDATE()) AND @fechaDevolucion)
+BEGIN
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+SELECT 1 AS Rpta
+RETURN
+
+END
+GO
+
+CREATE PROCEDURE sp_validar_prestamo
+@codigoMat VARCHAR(30)
+AS
+BEGIN
+
+IF EXISTS (SELECT id FROM tblPrestamo WHERE codigoMat=@codigoMat)
+BEGIN
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+SELECT 1 AS Rpta
+RETURN
+
+END
+GO
+
+CREATE PROCEDURE sp_cargar_reserva_persona
+@codigoMat VARCHAR(30),
+@nit VARCHAR(30)
+AS
+BEGIN
+	SELECT Reserva=R.id,Material=M.nombre,[Fecha reserva]=R.fechaReserva,Estado=E.descripcion
+	FROM tblReserva R
+	INNER JOIN tblReservaEstado E ON R.idEstado=E.id
+	INNER JOIN tblMaterial M ON R.codigoMat=M.codigo
+	WHERE R.codigoMat=@codigoMat AND R.nit=@nit AND R.idEstado=1
+
+	--EXEC sp_cargar_reserva_persona 'CAS0001','1152704820'
+END
+GO
+
+
+
+--MÓDULO DE DEVOLUCIÓN---------------------------
+
+CREATE PROCEDURE sp_Ingresar_Sancion
+@codigoMat VARCHAR(30),
+@nit VARCHAR(30),
+@idDevolu INT,
+@monto MONEY,
+@notas VARCHAR(300)
+AS
+BEGIN
+	BEGIN TRANSACTION tx
+
+	INSERT INTO tblSancion (codigoMat,nit,idDevolucion,monto,notas)
+	VALUES (@codigoMat,@nit,@idDevolu,@monto,@notas)
+
+	IF ( @@ERROR > 0 )
+	BEGIN
+		ROLLBACK TRANSACTION tx
+		SELECT 0 AS Rpta
+		RETURN
+	END
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+END
+GO
+
+CREATE PROCEDURE sp_Ingresar_Devolucion
+@codigoMat VARCHAR(30),
+@idEstadoMat INT,
+@nit VARCHAR(30),
+@nota VARCHAR(300)
+AS 
+BEGIN	
+	DECLARE @monto MONEY=0
+	DECLARE @idEstadoPrestamo INT
+	DECLARE @fechaPrestamo DATE
+
+	SELECT @idEstadoPrestamo=P.idEstadoMat,@fechaPrestamo=CONVERT(DATE,P.fechaPrestamo)
+	FROM tblPrestamo P
+	WHERE P.nit=@nit AND P.codigoMat=@codigoMat
+
+	IF (@fechaPrestamo>CONVERT(DATE,GETDATE()))
+	BEGIN
+		SELECT @monto=@monto+(DATEDIFF(DAY,CONVERT(DATE,GETDATE()),@fechaPrestamo)*1000) --Se registrarán COP$1.000 por cada día de mora
+	END
+
+	IF (@idEstadoMat<>@idEstadoPrestamo)
+	BEGIN
+		SELECT @monto=@monto+30000 --Se registrarán COP$30.000 por el daño del material
+	END
+
+	BEGIN TRANSACTION tx
+
+	INSERT INTO tblDevolucion(codigoMat,idEstadoMatPrestamo,idEstadoMatDevolucion,nit,idReserva,fechaPrestamo,fechaDevolucion,fechaDevolucionReal)
+	SELECT P.codigoMat,P.idEstadoMat,@idEstadoMat,P.nit,ISNULL(P.idReserva,0),P.fechaPrestamo,P.fechaDevolucion,GETDATE()
+	FROM tblPrestamo P
+	WHERE P.nit=@nit AND P.codigoMat=@codigoMat
+
+	EXEC sp_Ingresar_Sancion @codigoMat,@nit,@@IDENTITY,@monto,@nota
+	
+	DELETE 
+	FROM tblPrestamo
+	WHERE nit=@nit AND codigoMat=@codigoMat
+
+	IF ( @@ERROR > 0 )
+	BEGIN
+		ROLLBACK TRANSACTION tx
+		SELECT 0 AS Rpta
+		RETURN
+	END
+	COMMIT TRANSACTION tx
+	SELECT @monto AS Rpta
+	RETURN
+
+END
+GO
+

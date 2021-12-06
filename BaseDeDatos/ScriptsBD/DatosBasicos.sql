@@ -18,3 +18,13 @@ VALUES ('VIGENTE'),
 ('PROCESADO'),
 ('CANCELADO')
 GO
+
+EXEC sp_ingresar_Mat_autor 'Gabriel garcia marquez'
+EXEC sp_ingresar_Mat_productor 'planeta'
+EXEC sp_ingresar_Material '0','0','0',1,1,1,1
+EXEC sp_ingresar_persona_usuario '0','0','0','0',1,'0','qAWsKidjruJEHDU78jd'
+EXEC sp_ingresar_Reserva '0','0',2,'01/01/2021'
+
+
+
+

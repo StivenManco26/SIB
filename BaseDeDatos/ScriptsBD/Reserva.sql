@@ -9,8 +9,6 @@ BEGIN
 END
 GO
 
---EXEC sp_consultar_Reserva_estado
-
 
 CREATE PROCEDURE sp_cancelar_Reserva
 @codMaterial VARCHAR(30),
@@ -18,33 +16,42 @@ CREATE PROCEDURE sp_cancelar_Reserva
 AS
 BEGIN
 
-IF EXISTS (SELECT * FROM tblReserva WHERE codigoMat=@codMaterial AND nit=@nit)
+IF NOT EXISTS (
+	SELECT R.id
+	FROM tblReserva R
+	LEFT JOIN tblPrestamo P ON R.id=P.idReserva
+	LEFT JOIN tblDevolucion D ON R.id=D.idReserva
+	WHERE R.codigoMat=@codMaterial AND R.nit=@nit AND R.idEstado=1 AND (P.idReserva IS NOT NULL OR D.idReserva IS NOT NULL)
+)
 BEGIN
 
- BEGIN TRANSACTION tx
+	BEGIN TRANSACTION tx
 
- UPDATE tblReserva
-SET idEstado=2
-WHERE codigoMat=@codMaterial AND nit=@nit
+		UPDATE R
+		SET R.idEstado=2
+		FROM tblReserva R
+		LEFT JOIN tblPrestamo P ON R.id=P.idReserva
+		LEFT JOIN tblDevolucion D ON R.id=D.idReserva
+		WHERE R.codigoMat=@codMaterial AND R.nit=@nit AND R.idEstado=1 AND P.idReserva IS NULL AND D.idReserva IS NULL
 
- IF ( @@ERROR > 0 )
-BEGIN
-ROLLBACK TRANSACTION tx
-SELECT 0 AS Rpta
-RETURN
+		IF ( @@ERROR > 0 )
+		BEGIN
+			ROLLBACK TRANSACTION tx
+			SELECT 0 AS Rpta
+			RETURN
+		END
+
+	COMMIT TRANSACTION tx
+	SELECT 1 AS Rpta
+	RETURN
+
+END
+ELSE 
+	SELECT 0 AS Rpta
+	RETURN
 END
 
- COMMIT TRANSACTION tx
-SELECT 1 AS Rpta
-RETURN
-
-END
-ELSE
-SELECT 0 AS Rpta
-RETURN
-END
-
---EXEC sp_cancelar_Reserva 'CAS0001','1152704820'
+--EXEC sp_cancelar_Reserva 1
 GO
 
 
@@ -75,6 +82,7 @@ BEGIN
 		SELECT 6 AS Rpta--, 'La fecha no es válida' Dato
 		RETURN
 	END
+	SET @fechaReserva=CONVERT(DATE,@fechaReserva)
 
 	DECLARE @MaxPrestamo INT
 	DECLARE @CantPrestamo INT
@@ -99,7 +107,7 @@ BEGIN
 
 	DECLARE @fechaReservaActual AS DATE
 	DECLARE @fechaPosibleDevolucion AS DATE
-	DECLARE @control INT
+	DECLARE @control INT=0
 
 	DECLARE validarFecha CURSOR FOR
 		SELECT CONVERT(DATE,R.fechaReserva),CONVERT(DATE,DATEADD(DAY,PE.diasPrestamo,R.fechaReserva))
@@ -108,7 +116,7 @@ BEGIN
 		INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
 		WHERE R.codigoMat=@codMaterial AND R.idEstado=1
 	OPEN validarFecha
-		FETCH NEXT FROM Cambio_Precio1 INTO @fechaReservaActual,@fechaPosibleDevolucion
+		FETCH NEXT FROM validarFecha INTO @fechaReservaActual,@fechaPosibleDevolucion
 		WHILE @@FETCH_STATUS = 0 BEGIN
 			IF ((CONVERT(DATE,@fechaReserva) BETWEEN @fechaReservaActual AND @fechaPosibleDevolucion)
 				OR (CONVERT(DATE,DATEADD(DAY,@DiasPrestamo,@fechaReserva)) BETWEEN @fechaReservaActual AND @fechaPosibleDevolucion))
@@ -145,4 +153,37 @@ BEGIN
 	END
 
 	--EXEC sp_ingresar_Reserva 'CAS0001','1152704820',1,'3191234567',1,'01/12/2021'
+GO
+
+
+CREATE PROCEDURE sp_validar_reserva
+@codigoMat VARCHAR(30),
+@nit VARCHAR(30)
+AS
+BEGIN
+
+DECLARE @fechaReserva DATE
+DECLARE @fechaDevolucion DATE
+
+SELECT @fechaDevolucion=CONVERT(DATE,DATEADD(DAY,PE.diasPrestamo,GETDATE()))
+FROM tblPersona P
+INNER JOIN tblPerfil PE ON P.perfil=PE.id 
+WHERE P.nit=@nit
+
+SELECT @fechaReserva=CONVERT(DATE,DATEADD(DAY,PE.diasPrestamo,R.fechaReserva))
+FROM tblReserva R
+INNER JOIN tblPersona P ON R.nit=P.nit
+INNER JOIN tblPerfil PE ON P.perfil=PE.id
+WHERE R.codigoMat=@codigoMat AND R.idEstado=1
+
+IF(@fechaReserva BETWEEN CONVERT(DATE,GETDATE()) AND @fechaDevolucion)
+BEGIN
+	SELECT 0 AS Rpta
+	RETURN
+END
+
+SELECT 1 AS Rpta
+RETURN
+
+END
 GO

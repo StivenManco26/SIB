@@ -142,9 +142,9 @@ CREATE PROCEDURE sp_buscar_persona
 @nit VARCHAR(30)
 AS
 BEGIN
-	SELECT P.nit,P.nombre,P.correo,P.celular,PE.descripcion  
+	SELECT P.nit,P.nombre,P.correo,P.celular,P.perfil
 	FROM tblPersona P
-	INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
+	--INNER JOIN tblPerfil PE ON P.perfil=PE.perfil
 	WHERE nit = @nit
 	--EXEC sp_buscar_persona '1152704820'
 END

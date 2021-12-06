@@ -90,9 +90,11 @@
     <Content Include="frmInicio.aspx" />
     <Content Include="frmLogin.aspx" />
     <Content Include="frmAutor.aspx" />
+    <Content Include="frmDevolucion.aspx" />
     <Content Include="frmReserva.aspx" />
     <Content Include="frmSplash.aspx" />
     <Content Include="frmMaterial.aspx" />
+    <Content Include="frmPrestamos.aspx" />
     <Content Include="frmUsuarios.aspx" />
     <Content Include="imagenes\Buscar.jpg" />
     <Content Include="imagenes\error.ico" />
@@ -103,12 +105,14 @@
   <ItemGroup>
     <Compile Include="Clases\clsAutor.cs" />
     <Compile Include="Clases\clsEditorial.cs" />
+    <Compile Include="Clases\clsDevolucion.cs" />
     <Compile Include="Clases\clsEstadoReserva.cs" />
     <Compile Include="Clases\clsEstado.cs" />
     <Compile Include="Clases\clsPerfil.cs" />
     <Compile Include="Clases\clsGenerales.cs" />
     <Compile Include="Clases\clsLogin.cs" />
     <Compile Include="Clases\clsMaterial.cs" />
+    <Compile Include="Clases\clsPrestamo.cs" />
     <Compile Include="Clases\clsUsuario.cs" />
     <Compile Include="frmEditorial.aspx.cs">
       <DependentUpon>frmEditorial.aspx</DependentUpon>
@@ -138,6 +142,13 @@
     <Compile Include="frmAutor.aspx.designer.cs">
       <DependentUpon>frmAutor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="frmDevolucion.aspx.cs">
+      <DependentUpon>frmDevolucion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmDevolucion.aspx.designer.cs">
+      <DependentUpon>frmDevolucion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="frmReserva.aspx.cs">
       <DependentUpon>frmReserva.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -165,6 +176,13 @@
     </Compile>
     <Compile Include="frmMaterial.aspx.designer.cs">
       <DependentUpon>frmMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrestamos.aspx.cs">
+      <DependentUpon>frmPrestamos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmPrestamos.aspx.designer.cs">
+      <DependentUpon>frmPrestamos.aspx</DependentUpon>
     </Compile>
     <Compile Include="frmUsuarios.aspx.cs">
       <DependentUpon>frmUsuarios.aspx</DependentUpon>
