@@ -145,7 +145,6 @@ namespace webSib
         {
             grvReserva.Visible = false;          
             grvDatosPrestamo.Visible = true;
-            btnIngresarPrestamo.Enabled = true;
             btnIngresarPrestamoReserva.Enabled = false;
             if (intOpcion == 2)
                 this.grvDatosPrestamo.Columns[0].Visible = true;
@@ -298,10 +297,6 @@ namespace webSib
 
         }
 
-
-
-
-
         private void BuscarReservaPersona()
         {
             grvReserva.Visible = true;
@@ -382,7 +377,7 @@ namespace webSib
                     DiasPrestamo();
                     Nuevafecha = Convert.ToDateTime(lblFechaDevo.Text);
                     lblFechaDevo.Text = Nuevafecha.AddDays(Convert.ToInt32(lblDiasPrestamo.Text)).ToString("dd/MM/yyyy");
-
+                    btnIngresarPrestamo.Enabled = true;
                     break;
                 case "opcLimpiarGrid":
                     intOpcion = 1;

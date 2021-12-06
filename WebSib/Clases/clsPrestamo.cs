@@ -13,7 +13,7 @@ namespace webSib.Clases
     {
         #region "Atributos y propiedades"
         private string strApp;
-        public string FechaPres { set; get; }
+        public DateTime FechaPres { set; get; }
         public DateTime FechaDevo { set; get; }
         public DateTime FechaRegi { set; get; }
         public DateTime FechaReserva { set; get; }
@@ -46,7 +46,7 @@ namespace webSib.Clases
         public clsPrestamo(string Aplicacion)
         {
             strApp = Aplicacion;
-            FechaPres = string.Empty;
+            FechaPres = DateTime.Now.Date;
             FechaDevo = DateTime.Now.Date;
             FechaRegi = DateTime.Now.Date;
             FechaReserva = DateTime.Now.Date;
@@ -69,7 +69,7 @@ namespace webSib.Clases
         public clsPrestamo(string Aplicacion, /*DateTime fechaPres, DateTime fechaRegi, */string codigoMat, int idEstadoMaterial, string nit, int idReserva, DateTime fechaDevo /*int numero, string material,int CantPres,int diasPrest,string nombre*/)
         {
             strApp = Aplicacion;
-            FechaPres = "yyyy-mm-dd";
+            FechaPres = DateTime.Now.Date;
             FechaDevo = fechaDevo;
             FechaRegi = DateTime.Now.Date;
             CodigoMat = codigoMat;
@@ -93,7 +93,7 @@ namespace webSib.Clases
 
         private bool ValidarDatos()
         {
-            if (Convert.ToDateTime(FechaPres)<  DateTime.Now.Date)
+            if (FechaPres<  DateTime.Now.Date)
             {
                 Error = "Fecha de prestamo no válida";
                 return false;
@@ -123,17 +123,12 @@ namespace webSib.Clases
                 Error = "Maximo de prestamos permitido ";
                 return false;
             }
-            if(RespuestaRes==0)
-            {
-                Error = "El codigo "+CodigoMat+" Ya tiene una reserva activa";
-                return false;
-            }
             return true;
         }
 
         private bool ValidarDatosReserva()
         {
-            if (Convert.ToDateTime(FechaPres) < DateTime.Now.Date)
+            if (FechaPres < DateTime.Now.Date)
             {
                 Error = "Fecha de prestamo no válida";
                 return false;
@@ -154,22 +149,17 @@ namespace webSib.Clases
                 Error = "Maximo de prestamos permitido";
                 return false;
             }
-            //if (RespuestaPres == 0)
-            //{
-            //    Error = "El codigo " + CodigoMat + " Ya tiene un Prestamo activo";
-            //    return false;
-            //}
+            if (RespuestaPres == 0)
+            {
+                Error = "El codigo " + CodigoMat + " Ya tiene un Prestamo activo";
+                return false;
+            }
             return true;
         }
 
-
-
-
-
-
         private bool ValidarDatosMaestro()
         {
-            if (Convert.ToDateTime(FechaPres) < DateTime.Now.Date)
+            if (FechaPres < DateTime.Now.Date)
             {
                 Error = "Fecha de prestamo no válida";
                 return false;
@@ -369,7 +359,7 @@ namespace webSib.Clases
                 EstadoMaterial = dr["estado"].ToString();
                 Nit = dr["nit"].ToString();
                 IdReserva = Convert.ToInt32(dr["idReserva"]);
-                FechaPres = dr["fechaPrestamo"].ToString();                
+                FechaPres = Convert.ToDateTime(dr["fechaPrestamo"]);                
                 FechaDevo = Convert.ToDateTime(dr["fechaDevolucion"]);
                 FechaRegi = Convert.ToDateTime(dr["fechaRegistro"]);
                 //Mydt.Clear();
@@ -554,7 +544,7 @@ namespace webSib.Clases
             if (!ValidarDatos())
                 return false;                
             
-            strSQL = "EXEC sp_Ingresar_Prestamo '" + CodigoMat + "'," + IdEstadoMaterial + ",'" + Nit + "' ," + IdReserva + ",'" + "" + FechaDevo.ToString("yyyy-MM-dd") + "';";
+            strSQL = "EXEC sp_Ingresar_Prestamo '" + CodigoMat + "'," + IdEstadoMaterial + ",'" + Nit + "' ," + IdReserva + ",'" + "" + FechaDevo + "';";
             if (!Grabar())
                 return false;
 
@@ -566,7 +556,7 @@ namespace webSib.Clases
             if (!ValidarDatosReserva())
                 return false;
 
-            strSQL = "EXEC sp_Ingresar_Prestamo_con_Reserva " + IdReserva + "," + IdEstadoMaterial + ",'" + FechaDevo.ToString("yyyy-MM-dd") + "';";
+            strSQL = "EXEC sp_Ingresar_Prestamo_con_Reserva " + IdReserva + "," + IdEstadoMaterial + ",'" + FechaDevo + "';";
             if (!Grabar())
                 return false;
 
