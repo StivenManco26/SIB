@@ -1,16 +1,17 @@
 --MÓDULO MATERIAL------------------------------------------------------
+
 CREATE PROCEDURE sp_consultar_Mat_general
 AS
 BEGIN
-	SELECT M.CODIGO,M.NOMBRE,M.EDICION,M.CANTIDAD,E.ESTADO,A.AUTOR,P.PRODUCTOR
+	SELECT M.CODIGO,M.NOMBRE,M.EDICION,E.ESTADO,A.AUTOR,P.PRODUCTOR
 	FROM tblMaterial M
 	INNER JOIN tblMaterialEstado E ON E.id=M.idEstado
 	INNER JOIN tblMaterialAutor A ON A.id=M.idAutor
 	INNER JOIN tblMaterialProductor P ON P.id=M.idProductor
-	ORDER BY codigo ASC 
+	WHERE M.codigo<>'0'
+	ORDER BY codigo ASC
 END
 GO
-
 
 CREATE PROCEDURE sp_consultar_Mat_puntual
 @codigo VARCHAR(30)
@@ -53,6 +54,43 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE sp_consultar_Mat_Autor_general
+AS
+BEGIN
+	SELECT id CODIGO,AUTOR
+	FROM tblMaterialAutor
+	ORDER BY id ASC 
+END
+GO
+
+CREATE PROCEDURE sp_consultar_autor_puntual
+@id INT
+AS
+BEGIN
+	SELECT id CODIGO,AUTOR
+	FROM tblMaterialAutor
+	WHERE id=@id
+END
+GO
+
+CREATE PROCEDURE sp_consultar_Mat_Productor_puntual
+@id INT
+AS
+BEGIN
+	SELECT id CODIGO,productor
+	FROM tblMaterialProductor
+	WHERE id=@id
+END
+GO
+
+CREATE PROCEDURE sp_consultar_Mat_Productor_general
+AS
+BEGIN
+	SELECT id CODIGO,productor EDITORIAL
+	FROM tblMaterialProductor
+	ORDER BY id ASC
+END
+GO
 
 CREATE PROCEDURE sp_ingresar_Mat_autor
 @nombre VARCHAR(200)

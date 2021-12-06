@@ -23,13 +23,12 @@ BEGIN
 	CONVERT(DATE,P.fechaRegistro,3) fechaRegistro
 	FROM tblPrestamo P
 	INNER JOIN tblPersona PE ON P.nit=PE.nit
-	INNER JOIN tblMaterialEstado ME on P.idEstadoMat=ME.id
+	INNER JOIN tblMaterialEstado ME ON P.idEstadoMat=ME.id
 	WHERE P.nit = @nit
 	--EXEC sp_buscar_prestamo_persona '1152704820'
 END
 GO
 
--- EXEC sp_Ingresar_Prestamo 'CaS0001', 1, '1152704820', NULL, '2021-11-21'
 
 CREATE PROCEDURE [dbo].[sp_Ingresar_Prestamo]
 @codigoMat VARCHAR(30),
@@ -37,29 +36,33 @@ CREATE PROCEDURE [dbo].[sp_Ingresar_Prestamo]
 @nit VARCHAR(30),
 @idReserva INT,
 @FechaDevolucion DATETIME
-AS 
-BEGIN	
+AS
+BEGIN
 
-	IF EXISTS (SELECT nit FROM tblSancion WHERE nit=@nit GROUP BY nit)
-	BEGIN 
-		SELECT 0 AS Rpta
-		RETURN
-	END
+ IF EXISTS (SELECT nit,SUM(monto) FROM tblSancion WHERE nit=@nit GROUP BY nit HAVING SUM(monto)>0)
+BEGIN
+SELECT 2 AS Rpta --Mostrar mensaje de bloqueo por no pago de sanción
+RETURN
+END
 
-	BEGIN TRANSACTION tx
+ BEGIN TRANSACTION tx
 
-	INSERT INTO tblPrestamo(codigoMat,idEstadoMat,nit,idReserva,fechaPrestamo,fechaDevolucion,fechaRegistro)
-	VALUES (@codigoMat,@idEstadoMat,@nit,@idReserva,GETDATE(),CONVERT(DATE,@FechaDevolucion,3),GETDATE())
+ INSERT INTO tblPrestamo(codigoMat,idEstadoMat,nit,idReserva,fechaPrestamo,fechaDevolucion,fechaRegistro)
+VALUES (@codigoMat,@idEstadoMat,@nit,@idReserva,GETDATE(),CONVERT(DATE,@FechaDevolucion,3),GETDATE())
 
-	IF ( @@ERROR > 0 )
-	BEGIN
-		ROLLBACK TRANSACTION tx
-		SELECT 0 AS Rpta
-		RETURN
-	END
-	COMMIT TRANSACTION tx
-	SELECT 1 AS Rpta
-	RETURN
+ UPDATE tblReserva
+SET idEstado=2
+WHERE id=@idReserva
+
+ IF ( @@ERROR > 0 )
+BEGIN
+ROLLBACK TRANSACTION tx
+SELECT 0 AS Rpta
+RETURN
+END
+COMMIT TRANSACTION tx
+SELECT 1 AS Rpta
+RETURN
 
 END
 GO

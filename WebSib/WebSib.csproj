@@ -94,6 +94,7 @@
     <Content Include="frmReserva.aspx" />
     <Content Include="frmSplash.aspx" />
     <Content Include="frmMaterial.aspx" />
+    <Content Include="frmPrestamos.aspx" />
     <Content Include="frmUsuarios.aspx" />
     <Content Include="imagenes\Buscar.jpg" />
     <Content Include="imagenes\error.ico" />
@@ -111,6 +112,7 @@
     <Compile Include="Clases\clsGenerales.cs" />
     <Compile Include="Clases\clsLogin.cs" />
     <Compile Include="Clases\clsMaterial.cs" />
+    <Compile Include="Clases\clsPrestamo.cs" />
     <Compile Include="Clases\clsUsuario.cs" />
     <Compile Include="frmEditorial.aspx.cs">
       <DependentUpon>frmEditorial.aspx</DependentUpon>
@@ -174,6 +176,13 @@
     </Compile>
     <Compile Include="frmMaterial.aspx.designer.cs">
       <DependentUpon>frmMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrestamos.aspx.cs">
+      <DependentUpon>frmPrestamos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmPrestamos.aspx.designer.cs">
+      <DependentUpon>frmPrestamos.aspx</DependentUpon>
     </Compile>
     <Compile Include="frmUsuarios.aspx.cs">
       <DependentUpon>frmUsuarios.aspx</DependentUpon>
